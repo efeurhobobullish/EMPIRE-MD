@@ -71,7 +71,6 @@ connectToWA()
 }
 } else if (connection === 'open') {
 console.log('✅Whatsapp Login Successful!')
-const fs = require('fs');
 const path = require('path');
 
 fs.readdirSync(".Lib/plugins/").forEach((plugin) => {
