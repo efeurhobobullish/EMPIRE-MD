@@ -1,0 +1,85 @@
+{
+  "name": "𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷",
+  "description": "𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷 | 𝐴𝑛 𝑎𝑙𝑙-𝑖𝑛-𝑜𝑛𝑒 𝑊ℎ𝑎𝑡𝑠𝐴𝑝𝑝 𝐵𝑜𝑡 𝐹𝑜𝑟 𝑀𝑢𝑠𝑖𝑐 🎶 , 𝑆𝑚𝑎𝑟𝑡 𝐹𝑒𝑎𝑡𝑢𝑟𝑒𝑠 🤖. 𝐹𝑎𝑠𝑡 ,𝑅𝑒𝑙𝑖𝑎𝑏𝑙𝑒, 𝑎𝑛𝑑 𝑎𝑤𝑒𝑠𝑜𝑚𝑒 🚀",
+  "logo": "https://files.catbox.moe/r4decc.jpg",
+  "keywords": ["EMPIRE-MD", "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]", "Bot", "𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷"],
+  "success_url": "/",
+  "env": {
+    "ALWAYS_ONLINE": {
+      "required": true,
+      "value": "false",
+      "description": "Use true or false to enable or disable always online."
+    },
+    "ANTICALL": {
+      "required": true,
+      "value": "false",
+      "description": "use true or false to Enable or disable calls."
+    },
+    "ANTICALL_MSG": {
+      "required": true,
+      "value": "*_📞 𝐴𝑢𝑡𝑜 𝐶𝑎𝑙𝑙 𝑅𝑒𝑗𝑒𝑐𝑡 𝑀𝑜𝑑𝑒 𝐴𝑐𝑡𝑖𝑣𝑒. 📵 𝑁𝑜 𝐶𝑎𝑙𝑙𝑠 𝐴𝑙𝑙𝑜𝑤𝑒𝑑!_*",
+      "description": "Message for rejecting calls in Auto Reject Mode."
+    },
+    "ANTILINK": {
+      "required": true,
+      "value": "false",
+      "description": "Enable or disable the anti-link feature in groups."
+    },
+    "AUTO_LIKE_EMOJI": {
+      "required": true,
+      "value": "💜",
+      "description": "Set custom emoji for auto-like status."
+    },
+    "AUTO_LIKE_STATUS": {
+      "required": true,
+      "value": "false",
+      "description": "Enable auto-like status with true or false."
+    },
+    "AUTO_RECORDING": {
+      "required": true,
+      "value": "false",
+      "description": "Enable or disable the auto-recording feature."
+    },
+    "AUTO_TYPING": {
+      "required": true,
+      "value": "false",
+      "description": "Enable or disable the auto-typing feature."
+    },
+    "AUTO_VIEW_STATUS": {
+      "required": true,
+      "value": "false",
+      "description": "Enable auto-read status with true or false."
+    },
+    "MODE": {
+      "required": true,
+      "value": "private",
+      "description": "Use 'public' or 'private'."
+    },
+    "OWNER_NAME": {
+      "required": true,
+      "value": "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]",
+      "description": "Owner name."
+    },
+    "OWNER_NUMBER": {
+      "required": true,
+      "value": "2348078582627",
+      "description": "Put your own number below."
+    },
+    "PREFIX": {
+      "required": true,
+      "value": ".",
+      "description": "Set your prefix. You can use `all | . | .!*`."
+    },
+    "SESSION_ID": {
+      "required": true,
+      "value": "fill session id here ",
+      "description": "Put session ID below."
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+    }
+  ],
+  "stack": "heroku-20"
+}
