@@ -6,7 +6,7 @@
   "scripts": {
     "restart": "pm2 restart EMPIRE-MD",
     "start": "pm2 start index.js --deep-monitoring --attach --name EMPIRE-MD",
-    "stop": "pm2 stop EMPIRE-MD
+    "stop": "pm2 stop EMPIRE-MD"
   },
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
