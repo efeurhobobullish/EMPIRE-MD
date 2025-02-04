@@ -52,23 +52,23 @@ cmd({
 
         // Header
         const header = `\`\`\`
-╭─── ${monospace(botname)} ───
-│ Owner: ${pushname}
-│ Prefix: ${prefix}
+╭─── 【 ${monospace(botname)} 】───
+│ Owner: ${monospace(pushname)}
+│ Prefix: ${monospace(prefix)}
 │ Commands: ${monospace(totalCommands.toString())}
-│ Mode: ${mode}
-│ Uptime: ${uptime}
+│ Mode:  ${monospace(mode)}
+│ Uptime: ${monospace(uptime)}
 │ Platform: ${os.platform()}
-│ Memory: ${usedMemory.toFixed(2)}MB / ${totalMemory.toFixed(2)}MB
-│ Day: ${dayOfWeek}
-│ Date: ${date}
-│ Time: ${time}
-│ Version: ${version}
+│ Memory: ${monospace(`${usedMemory.toFixed(2)}MB / ${totalMemory.toFixed(2)}MB`)}
+│ Day: ${monospace(dayOfWeek)}
+│ Date: ${monospace(date)}
+│ Time: ${monospace(time)}
+│ Version: ${monospace(version)}
 ╰─────────────────\`\`\`\n`;
 
         // Format categories
         const formatCategory = (category, cmds) => {
-            const title = `╭──── *${monospace(category.toUpperCase())}* ────\n`;
+            const title = `╭──── 【 *${monospace(category.toUpperCase())}* 】 ────\n`;
             const body = cmds.map((cmd, index) => `│ ${index + 1}. ${monospace(prefix + cmd)}`).join('\n');
             const footer = `╰────────────\n`;
             return `${title}${body}\n${footer}`;
