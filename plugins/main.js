@@ -36,9 +36,6 @@ cmd({
 
         // System Info
         const uptime = runtime(process.uptime()); // Use runtime function to get uptime
-        const totalMemory = os.totalmem() / (1024 * 1024); // Total memory in MB
-        const freeMemory = os.freemem() / (1024 * 1024); // Free memory in MB
-        const usedMemory = totalMemory - freeMemory;
         const totalCommands = commands.length;
 
         // Categorize commands dynamically
@@ -52,25 +49,24 @@ cmd({
 
         // Header
         const header = `\`\`\`
-╭─── 【 ${monospace(botname)} 】───
-│ Owner: ${monospace(pushname)}
-│ Prefix: ${monospace(prefix)}
-│ Commands: ${monospace(totalCommands.toString())}
-│ Mode:  ${monospace(mode)}
-│ Uptime: ${monospace(uptime)}
-│ Platform: ${os.platform()}
-│ Memory: ${monospace(`${usedMemory.toFixed(2)}MB / ${totalMemory.toFixed(2)}MB`)}
-│ Day: ${monospace(dayOfWeek)}
-│ Date: ${monospace(date)}
-│ Time: ${monospace(time)}
-│ Version: ${monospace(version)}
-╰─────────────────\`\`\`\n`;
+╭──╼【 ${monospace(botname)} 】
+┃ ∘ Owner: ${monospace(pushname)}
+┃ ∘ Prefix: ${monospace(prefix)}
+┃ ∘ Commands: ${monospace(totalCommands.toString())}
+┃ ∘ Mode:  ${monospace(mode)}
+┃ ∘ Uptime: ${monospace(uptime)}
+┃ ∘ Platform: ${monospace(os.platform())}
+┃ ∘ Day: ${monospace(dayOfWeek)}
+┃ ∘ Date: ${monospace(date)}
+┃ ∘ Time: ${monospace(time)}
+┃ ∘ Version: ${monospace(version)}
+╰─────────────╼\`\`\`\n`;
 
         // Format categories
         const formatCategory = (category, cmds) => {
-            const title = `╭──── 【 *${monospace(category.toUpperCase())}* 】 ────\n`;
-            const body = cmds.map((cmd, index) => `│ ${index + 1}. ${monospace(prefix + cmd)}`).join('\n');
-            const footer = `╰────────────\n`;
+            const title = `╭───╼【 *${monospace(category.toUpperCase())}* 】\n`;
+            const body = cmds.map((cmd, index) => `┃ ∘  ${index + 1}. ${monospace(prefix + cmd)}`).join('\n');
+            const footer = `╰──────────╼\n`;
             return `${title}${body}\n${footer}`;
         };
 
