@@ -945,3 +945,47 @@ cmd({
         reply(`An error occurred: ${error.message || "Unknown error"}`);
     }
 });
+
+cmd({
+    pattern: "lockgcs",
+    desc: "Change to group settings to only admins can edit group info",
+    category: "group",
+    use: '.lockgs',
+    filename: __filename
+},
+async(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isCreator ,isDev, isAdmins, reply}) => {
+try{
+if (!isGroup) return reply('🚫 *This is Group Command*')
+if (!isBotAdmins) return reply('🚫 *Bot must be Admin frist*')
+if (!isAdmins) return reply('🚫 *You must be admin frist*') 
+await conn.groupSettingUpdate(from, 'locked')
+ await conn.sendMessage(from , { text: `🔒 *Group settings Locked*` }, { quoted: mek } )
+} catch (e) {
+reply('*Error !!*')
+l(e)
+}
+});
+
+//allow everyone to modify the group's settings -- like display picture etc.
+//await sock.groupSettingUpdate("abcd-xyz@g.us", 'unlocked')
+
+cmd({
+    pattern: "unlockgcs",
+    react: "🔓",
+    desc: "Change to group settings to all members can edit group info",
+    category: "group",
+    use: '.unlockgs',
+    filename: __filename
+},
+async(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isCreator ,isDev, isAdmins, reply}) => {
+try{
+if (!isGroup) return reply('🚫 *This is Group command*')
+if (!isBotAdmins) return reply('🚫 *Bot must be Admin frist*')
+if (!isAdmins) return reply('🚫 *You must be admin frist*')
+await conn.groupSettingUpdate(from, 'unlocked')
+ await conn.sendMessage(from , { text: `🔓 *Group settings Unlocked*` }, { quoted: mek } )
+} catch (e) {
+reply('*Error !!*')
+l(e)
+}
+});
