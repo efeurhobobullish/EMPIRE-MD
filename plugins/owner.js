@@ -2,7 +2,6 @@ const config = require('../config');
 const { cmd, commands } = require('../command');
 const { proto, downloadContentFromMessage } = require('@whiskeysockets/baileys');
 const { sms,downloadMediaMessage } = require('../Lib/msg');
-const { MessageType } = require('@adiwajshing/baileys');
 const fs = require('fs');
 const exec = require('child_process');
 const path = require('path');
