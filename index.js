@@ -50,7 +50,7 @@ const port = process.env.PORT || 8000;
 //=============================================
 
 async function connectToWA() {
-  console.log("ℹ️Connecting to WhatsApp!");
+  console.log("ℹ️ Connecting to WhatsApp!");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/');
   var { version } = await fetchLatestBaileysVersion();
 
@@ -70,7 +70,7 @@ if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
 connectToWA()
 }
 } else if (connection === 'open') {
-console.log('✅Whatsapp Login Successful!')
+console.log('✅ Whatsapp Login Successful!')
 const path = require('path');
 fs.readdirSync("./plugins/").forEach((plugin) => {
 if (path.extname(plugin).toLowerCase() == ".js") {
