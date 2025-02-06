@@ -77,7 +77,7 @@ if (path.extname(plugin).toLowerCase() == ".js") {
 require("./plugins/" + plugin);
 }
 });
-console.log('⏳Checking External Plugins.!!')
+console.log('⏳ Checking External Plugins.!')
 console.log('✅ External Plugins Installed!')
         let up = `╭─── 𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷 ────
 │ Prefix : [ ${prefix} ]
