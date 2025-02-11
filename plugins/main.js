@@ -12,7 +12,7 @@ const os = require('os'); // Import the os module
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('../Lib/functions');
 
 // Use global variables for dynamic content
-const botname = global.botname || "𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷";
+const botname = global.botname || "EMPIRE-MD";
 const prefix = config.PREFIX || ".";
 const version = "1.0.0";
 const mode = config.MODE || "private";
@@ -49,26 +49,26 @@ cmd({
 
         // Header
         const header = `\`\`\`
-╭──╼【 ${monospace(botname)} 】
-┃ ∘ Owner: ${monospace(pushname)}
-┃ ∘ Prefix: ${monospace(prefix)}
-┃ ∘ Commands: ${monospace(totalCommands.toString())}
-┃ ∘ Mode:  ${monospace(mode)}
-┃ ∘ Uptime: ${monospace(uptime)}
-┃ ∘ Platform: ${monospace(os.platform())}
-┃ ∘ Day: ${monospace(dayOfWeek)}
-┃ ∘ Date: ${monospace(date)}
-┃ ∘ Time: ${monospace(time)}
-┃ ∘ Version: ${monospace(version)}
-╰─────────────╼\`\`\`\n`;
+╭───「  ${monospace(botname)} 」─────◆  
+│ ∘ 𝙾𝚠𝚗𝚎𝚛: ${monospace(pushname)}  
+│ ∘ 𝙿𝚛𝚎𝚏𝚒𝚡: [ ${monospace(prefix)} ]  
+│ ∘ 𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜: ${monospace(totalCommands.toString())}  
+│ ∘ 𝙼𝚘𝚍𝚎: ${monospace(mode)}  
+│ ∘ 𝚄𝚙𝚝𝚒𝚖𝚎: ${monospace(uptime)}  
+│ ∘ 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖: ${monospace(os.platform())}  
+│ ∘ 𝙳𝚊𝚢: ${monospace(dayOfWeek)}  
+│ ∘ 𝙳𝚊𝚝𝚎: ${monospace(date)}  
+│ ∘ 𝚃𝚒𝚖𝚎: ${monospace(time)}  
+│ ∘ 𝚅𝚎𝚛𝚜𝚒𝚘𝚗: ${monospace(version)}  
+╰────────────────────\`\`\`\n`;
 
-        // Format categories
-        const formatCategory = (category, cmds) => {
-            const title = `╭───╼【 *${monospace(category.toUpperCase())}* 】\n`;
-            const body = cmds.map((cmd, index) => `┃ ∘  ${index + 1}. ${monospace(prefix + cmd)}`).join('\n');
-            const footer = `╰──────────╼\n`;
-            return `${title}${body}\n${footer}`;
-        };
+// Format categories
+const formatCategory = (category, cmds) => {
+    const title = `╭────「  ${monospace(category.toUpperCase())} 」────◆\n`;
+    const body = cmds.map(cmd => `│ ∘ ${monospace('[' + prefix + ']')}${monospace(cmd)}`).join('\n');
+    const footer = `╰──────────\n`;
+    return `${title}${body}\n${footer}`;
+};
 
         // Generate menu
         let menu = header;
