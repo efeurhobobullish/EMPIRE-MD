@@ -148,7 +148,7 @@ cmd({
 │ ∘ 𝚂𝚝𝚊𝚛𝚜: ${repoData.stargazers_count}  
 │ ∘ 𝙵𝚘𝚛𝚔𝚜: ${repoData.forks_count}  
 │ ∘ 𝚄𝚁𝙻: ${repoData.html_url}  
-│ ∘ 𝚂𝚎𝚜𝚜𝚒𝚘𝚗: https://empire-md-paircode.onrender.com  
+│ ∘ 𝚂𝚎𝚜𝚜𝚒𝚘𝚗: https://empire-md-paircode-erqo.onrender.com
 ╰────────────────────`;
 
         await conn.sendMessage(from, { text: formattedInfo }, { quoted: mek });
