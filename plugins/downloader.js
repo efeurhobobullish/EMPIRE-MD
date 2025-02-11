@@ -36,25 +36,25 @@ cmd({
       const data = search.videos[0];
       const url = data.url;
       // Build a download URL; adjust the endpoint as needed.
-      const downloadUrl = `https://ironman.koyeb.app/ironman/dl/yta?url=${url}`;
+      const downloadUrl = `https://api.giftedtech.web.id/api/download/ytmp3?apikey=_0x5aff35,_0x1876stqr&url=${url}`;
 
       // Build the info message
       const infoMessage = {
         image: { url: data.thumbnail },
         caption: `
-╭───── *𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑*───────
-│ 
-│ *Title:* ${data.title}
-│ *Quality:* mp3 (128kbps)
-│ *Duration:* ${data.timestamp}
-│ *Viewers:* ${data.views}
-│ *Uploaded:* ${data.ago}
-│ *Artist:* ${data.author.name}
-│────────────────────────
-│⦿ *Direct Yt Link:* ${url}
-│────────────────────────
-│ ${global.caption}
-╰────────────────────────`,
+╭────「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──────◆  
+│   
+│ ∘ 𝚃𝚒𝚝𝚕𝚎: ${data.title}  
+│ ∘ 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: 𝚖𝚙𝟹 (𝟷𝟸𝟾𝚔𝚋𝚙𝚜)  
+│ ∘ 𝙳𝚞𝚛𝚊𝚝𝚒𝚘𝚗: ${data.timestamp}  
+│ ∘ 𝚅𝚒𝚎𝚠𝚎𝚛𝚜: ${data.views}  
+│ ∘ 𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚍: ${data.ago}  
+│ ∘ 𝙰𝚛𝚝𝚒𝚜𝚝: ${data.author.name}  
+│───────────────────────  
+│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚈𝚝 𝙻𝚒𝚗𝚔: ${url}  
+│───────────────────────  
+│ ${global.caption}  
+╰───────────────────────`,
         contextInfo: {
           mentionedJid: [mek.sender],
           forwardingScore: 5,
@@ -97,7 +97,7 @@ cmd({
       console.error("Error in play command:", e);
       reply(`❌ Error: ${e.message}`);
     }
-  });
+});
 //---------------------------------------------------------------------------
 //            VIDEO COMMANDS
 //---------------------------------------------------------------------------
@@ -118,25 +118,25 @@ cmd({
       const data = search.videos[0];
       const url = data.url;
       // Build a download URL; adjust the endpoint as needed.
-      const downloadUrl = `https://ironman.koyeb.app/ironman/dl/ytv?url=${url}`;
+      const downloadUrl = `https://api.giftedtech.web.id/api/download/ytmp4?apikey=_0x5aff35,_0x1876stqr&url=${url}`;
 
       // Build the info message
       const infoMessage = {
         image: { url: data.thumbnail },
         caption: `
-╭─────*𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑*───────
-│ 
-│ *Title:* ${data.title}
-│ *Quality:* mp3 (128kbps)
-│ *Duration:* ${data.timestamp}
-│ *Viewers:* ${data.views}
-│ *Uploaded:* ${data.ago}
-│ *Artist:* ${data.author.name}
-│────────────────────────
-│⦿ *Direct Yt Link:* ${url}
-│────────────────────────
-│ ${global.caption}
-╰────────────────────────`,
+╭────「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──────◆  
+│   
+│ ∘ 𝚃𝚒𝚝𝚕𝚎: ${data.title}  
+│ ∘ 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: 𝚖𝚙4 (720p)  
+│ ∘ 𝙳𝚞𝚛𝚊𝚝𝚒𝚘𝚗: ${data.timestamp}  
+│ ∘ 𝚅𝚒𝚎𝚠𝚎𝚛𝚜: ${data.views}  
+│ ∘ 𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚍: ${data.ago}  
+│ ∘ 𝙰𝚛𝚝𝚒𝚜𝚝: ${data.author.name}  
+│───────────────────────  
+│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚈𝚝 𝙻𝚒𝚗𝚔: ${url}  
+│───────────────────────  
+│ ${global.caption}  
+╰───────────────────────`,
         contextInfo: {
           mentionedJid: [mek.sender],
           forwardingScore: 5,
@@ -213,16 +213,16 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         const infoMessage = {
             image: { url: thumbnailUrl },
             caption: `
-╭───── *𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑* ──────────
-│ 
-│ *Title:* ${title}
-│ *Author:* ${authorName}
-│ *Duration:* ${videoDetails.duration}s
-│──────────────────────────────
-│⦿ *Direct TikTok Link:* ${q}
-│──────────────────────────────
-│ ${global.caption}  // This is where global.caption goes
-╰──────────────────────────────`,
+╭────「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──────◆  
+│   
+│ ∘ 𝚃𝚒𝚝𝚕𝚎: ${title}  
+│ ∘ 𝙳𝚞𝚛𝚊𝚝𝚒𝚘𝚗: ${videoDetails.duration}s  
+│ ∘ 𝙰𝚞𝚝𝚑𝚘𝚛: ${authorName}  
+│───────────────────────  
+│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚃𝚒𝚔𝚃𝚘𝚔 𝙻𝚒𝚗𝚔: ${q}  
+│───────────────────────  
+│ ${global.caption}  
+╰───────────────────────`,
             contextInfo: {
                 mentionedJid: [mek.sender],
                 forwardingScore: 5,
@@ -286,16 +286,16 @@ cmd({
 
         const infoMessage = {
             caption: `
-╭───── *𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑* ──────────
-│ 
-│ *File Name:* ${fileData.fileName}
-│ *MIME Type:* ${fileData.mimetype}
-│ *Size:* ${fileData.size}
-│──────────────────────────────
-│⦿ *Google Drive Link:* ${url}
-│──────────────────────────────
-│ ${global.caption}  // This is where global.caption goes
-╰──────────────────────────────`,
+╭─────「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」────◆  
+│   
+│ ∘ 𝙵𝚒𝚕𝚎 𝙽𝚊𝚖𝚎: ${fileData.fileName}  
+│ ∘ 𝙼𝙸𝙼𝙴 𝚃𝚢𝚙𝚎: ${fileData.mimetype}  
+│ ∘ 𝚂𝚒𝚣𝚎: ${fileData.size}  
+│──────────────────────
+│ ⦿ 𝙶𝚘𝚘𝚐𝚕𝚎 𝙳𝚛𝚒𝚟𝚎 𝙻𝚒𝚗𝚔: ${url}  
+│──────────────────────
+│ ${global.caption}  
+╰──────────────────────`,
             contextInfo: {
                 mentionedJid: [mek.sender],
                 forwardingScore: 5,
@@ -348,7 +348,7 @@ cmd({
             return reply("Please provide the Pinterest media URL.");
         }
 
-        const response = await axios.get(`https://api.giftedtech.web.id/api/download/pinterestdl?apikey=gifted&url=${encodeURIComponent(pinterestUrl)}`);
+        const response = await axios.get(`https://api.giftedtech.web.id/api/download/pinterestdl?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(pinterestUrl)}`);
         const downloadUrl = response.data.result.url;
 
         if (!downloadUrl) {
@@ -379,17 +379,18 @@ cmd({
         if (!q) return reply("Please provide the GitHub repository URL.");
 
         const repoUrl = q;
-        const apiUrl = `https://api.giftedtech.web.id/api/download/gitclone?apikey=gifted&url=${repoUrl}`;
+        const apiUrl = `https://api.giftedtech.web.id/api/download/gitclone?apikey=_0x5aff35,_0x1876stqr&url=${repoUrl}`;
 
         // Send message with repository information
         let desc = `
-╭───── *𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑* ──────────
-│ > Cloning Repository
-│──────────────────────────────
-│⦿ *Direct Repo Link:* ${repoUrl}
-│──────────────────────────────
-│ ${global.caption} 
-╰──────────────────────────────`;
+╭───「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──◆
+│  
+│ ∘ 𝙲𝚕𝚘𝚗𝚒𝚗𝚐 𝚁𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢  
+│────────────────
+│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚁𝚎𝚙𝚘 𝙻𝚒𝚗𝚔: ${repoUrl}  
+│────────────────
+│ ${global.caption}  
+╰────────────────`;
         await conn.sendMessage(from, { text: desc }, { quoted: mek });
 
         await conn.sendMessage(from, {
@@ -432,12 +433,13 @@ cmd({
     const infoMessage = {
       video: { url: data.sd },
       caption: `
-╭───── *FACEBOOK VIDEO DOWNLOADER* ─────
-│ *Title:* ${data.title}
-│ *Description:* ${data.desc}
-│──────────────────────────────
-│⦿ *Direct Video Link:* ${data.sd}
-╰──────────────────────────────`,
+╭───「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」────◆
+│  
+│ ∘ 𝚃𝚒𝚝𝚕𝚎: ${data.title}  
+│ ∘ 𝙳𝚎𝚜𝚌𝚛𝚒𝚙𝚝𝚒𝚘𝚗: ${data.desc}  
+│─────────────────────
+│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚅𝚒𝚍𝚎𝚘 𝙻𝚒𝚗𝚔: ${data.sd}  
+╰─────────────────────`,
       fileName: "facebook_video.mp4",
       mimetype: "video/mp4"
     };
@@ -491,14 +493,14 @@ cmd({
                 {
                     document: { url: filePath },
                     caption: `
-╭───── *𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑* ──────────
-│ 
-│ *App Name:* ${data.name}
-│ *Size:* ${data.size}
-│ *Query:* ${q}
-│──────────────────────────────
-│ ${global.caption} 
-╰──────────────────────────────`,
+╭──「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」───◆
+│  
+│ ∘ 𝙰𝚙𝚙 𝙽𝚊𝚖𝚎: ${data.name}  
+│ ∘ 𝚂𝚒𝚣𝚎: ${data.size}  
+│ ∘ 𝚀𝚞𝚎𝚛𝚢: ${q}  
+│────────────────
+│ ${global.caption}  
+╰────────────────`,
                     fileName: fileName,
                     mimetype: "application/vnd.android.package-archive"
                 },
