@@ -9,6 +9,7 @@ const config = require('../config');
 const { cmd, commands } = require('../command');
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('../Lib/functions');
 const fs = require('fs');
+const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
 const { exec } = require('child_process'); 
 
@@ -33,11 +34,11 @@ cmd({
       const footer = "*𝐄𝐌𝐏𝐈𝐑𝐄-𝐌𝐃*";
 
       const finalMessage = `
-╭─────❏ *BOT INFO* ❏
-│ ❏ *Owner:* ${owner}
-│ ❏ *Repository:* ${repoLink}
-│ ❏ *Bot Uptime:* ${uptime}
-╰────────────────────────`;
+╭────「  𝙱𝙾𝚃 𝙸𝙽𝙵𝙾 」────◆  
+│ ∘ 𝙾𝚠𝚗𝚎𝚛: ${owner}  
+│ ∘ 𝚁𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢: ${repoLink}  
+│ ∘ 𝙱𝚘𝚝 𝚄𝚙𝚝𝚒𝚖𝚎: ${uptime}  
+╰────────────────────`;
 
       const imageUrl = "https://files.catbox.moe/z7c67w.jpg";
 
@@ -48,7 +49,7 @@ cmd({
       );
 
     } catch (e) {
-      return reply(`❏ An error occurred while processing your request.\n\n❏ _Error:_ ${e.message}`);
+      return reply(`│ ∘ An error occurred while processing your request.\n\n│ ∘ _Error:_ ${e.message}`);
     }
   });
 //--------------------------------------------
@@ -64,12 +65,12 @@ cmd({
         const uptime = runtime(process.uptime());
 
         const aliveMsg = `
-╭───── *𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷* ───────
-│ 𝙷𝙴𝙻𝙻𝙾 ${pushname}
-│──────────────────
-│ ❏ *UPTIME:* 
-│ ➛ ${uptime}
-╰──────────────────────── `;
+╭────「  𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」────◆  
+│ ∘ 𝙷𝙴𝙻𝙻𝙾 ${pushname}  
+│────────────────────  
+│ ∘ 𝚄𝙿𝚃𝙸𝙼𝙴:  
+│ ∘ ${uptime}  
+╰────────────────────`;
 
         await conn.sendMessage(
             from,
@@ -82,7 +83,7 @@ cmd({
 
     } catch (e) {
         console.log(e);
-        reply(`❏ An error occurred: ${e.message || e}`);
+        reply(`│ ∘  An error occurred: ${e.message || e}`);
     }
 });
 //--------------------------------------------
@@ -126,34 +127,34 @@ cmd({
         const regexMatch = githubRepoURL.match(/github\.com\/([^/]+)\/([^/]+)/);
 
         if (!regexMatch) {
-            return reply("❏ Invalid GitHub URL format.");
+            return reply("│ ∘ Invalid GitHub URL format.");
         }
 
         const [, username, repoName] = regexMatch;
         const response = await axios.get(`https://api.github.com/repos/${username}/${repoName}`);
 
         if (response.status !== 200) {
-            return reply("❏ Unable to fetch repository information.");
+            return reply("│ ∘  Unable to fetch repository information.");
         }
 
         const repoData = response.data;
         const description = repoData.description || "No description available";
 
         const formattedInfo = `
-╭───── * REPO * ──────
-│ ❏ *Repository Name:* ${repoData.name}
-│ ❏ *Description:* ${description}
-│ ❏ *Owner:* ${repoData.owner.login}
-│ ❏ *Stars:* ${repoData.stargazers_count}
-│ ❏ *Forks:* ${repoData.forks_count}
-│ ❏ *URL:* ${repoData.html_url}
-│ ❏ *Session:* https://empire-md-paircode.onrender.com
-╰────────────────────────`;
+╭────「  𝚁𝙴𝙿𝙾 」────◆  
+│ ∘ 𝚁𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢 𝙽𝚊𝚖𝚎: ${repoData.name}  
+│ ∘ 𝙳𝚎𝚜𝚌𝚛𝚒𝚙𝚝𝚒𝚘𝚗: ${description}  
+│ ∘ 𝙾𝚠𝚗𝚎𝚛: ${repoData.owner.login}  
+│ ∘ 𝚂𝚝𝚊𝚛𝚜: ${repoData.stargazers_count}  
+│ ∘ 𝙵𝚘𝚛𝚔𝚜: ${repoData.forks_count}  
+│ ∘ 𝚄𝚁𝙻: ${repoData.html_url}  
+│ ∘ 𝚂𝚎𝚜𝚜𝚒𝚘𝚗: https://empire-md-paircode.onrender.com  
+╰────────────────────`;
 
         await conn.sendMessage(from, { text: formattedInfo }, { quoted: mek });
 
     } catch (error) {
-        reply("❏ An error occurred while fetching repository information.");
+        reply("│ ∘ An error occurred while fetching repository information.");
     }
 });
 //--------------------------------------------
@@ -177,13 +178,13 @@ cmd({
         const devsNumber = global.devs;
 
         const requestMessage = `
-╭───── *BUG REPORT* ───────
-│ *From:* @${sender.split('@')[0]}
-│ *Name:* ${pushname || "Unknown"}
-│────────────────────────
-│ ❏ *Report:*  
-│ ➛ ${bugDescription}
-╰────────────────────────
+╭────「 𝙱𝚄𝙶 𝚁𝙴𝙿𝙾𝚁𝚃 」────◆  
+│ ∘ 𝙵𝚛𝚘𝚖: @${sender.split('@')[0]}  
+│ ∘ 𝙽𝚊𝚖𝚎: ${pushname || "Unknown"}  
+│───────────────────────  
+│ ∘ 𝚁𝚎𝚙𝚘𝚛𝚝:  
+│ ∘  ${bugDescription}  
+╰────────────────────
         `;
 
         await conn.sendMessage(`${devsNumber}@s.whatsapp.net`, { text: requestMessage });
@@ -219,7 +220,7 @@ cmd({
         }
 
         const uptime = formatUptime(process.uptime());
-        const uptimeMessage = `𝑈𝑝𝑡𝑖𝑚𝑒 𝑜𝑓 𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷: ${uptime}`;
+        const uptimeMessage = `𝚄𝚙𝚝𝚒𝚖𝚎 𝚘𝚏 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳: ${monospace(uptime)}`;
 
         await conn.sendMessage(from, { text: uptimeMessage }, { quoted: mek });
     } catch (e) {
