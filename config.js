@@ -14,28 +14,29 @@ function convertToBool(text, fault = 'true') {
 
 //═════[Don't Change Variables]════════\\
 
-global.alive_img = "📞 𝐴𝑢𝑡𝑜 𝐶𝑎𝑙𝑙 𝑅𝑒𝑗𝑒𝑐𝑡 𝑀𝑜𝑑𝑒 𝐴𝑐𝑡𝑖𝑣𝑒. 📵 𝑁𝑜 𝐶𝑎𝑙𝑙𝑠 𝐴𝑙𝑙𝑜𝑤𝑒𝑑!";
-global.caption = "©𝟐𝟎𝟐𝟓 𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]";
+global.alive_img = "📞 𝙰𝚞𝚝𝚘 𝙲𝚊𝚕𝚕 𝚁𝚎𝚓𝚎𝚌𝚝 𝙼𝚘𝚍𝚎 𝙰𝚌𝚝𝚒𝚟𝚎.  
+📵 𝙽𝚘 𝙲𝚊𝚕𝚕𝚜 𝙰𝚕𝚕𝚘𝚠𝚎𝚍!";
+global.caption = "[ 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 ]  
+𝙿𝚘𝚠𝚎𝚛𝚎𝚍 𝚋𝚢 𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
 global.channelUrl = "https://whatsapp.com/channel/0029VajVvpQIyPtUbYt3Oz0k";
-global.botname = "𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷";
+global.botname = "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳";
 global.devs = "2348078582627" // Developer Contact
-global.session = "https://empire-md-paircode-infy.onrender.com"; // DO NOT Change this....
-global.devsname = "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]";
-
+global.devsname = "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
+global.apikey = "_0x5aff35,_0x1876stqr";
 
 module.exports = {
     ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
     ANTICALL: process.env.ANTICALL || "false",
     ANTICALL_MSG: process.env.ANTICALL_MSG || "*_📞 Auto Call Reject Mode Active. 📵 No Calls Allowed!_*",
     ANTILINK: process.env.ANTILINK || "false",
-    AUTO_LIKE_EMOJI: process.env.AUTO_LIKE_EMOJI || "💜",
+    AUTO_LIKE_EMOJI: process.env.AUTO_LIKE_EMOJI || "💚",
     AUTO_LIKE_STATUS: process.env.AUTO_LIKE_STATUS || "false",
     AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
     AUTO_TYPING: process.env.AUTO_TYPING || "false",
     AUTO_VIEW_STATUS: process.env.AUTO_VIEW_STATUS || "false",
     MODE: process.env.MODE || "private",
     OWNER_NAME: process.env.OWNER_NAME || "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]",
-    OWNER_NUMBER: process.env.OWNER_NUMBER || "2348078582627",
+    OWNER_NUMBER: process.env.OWNER_NUMBER || "put owner number",
     PREFIX: process.env.PREFIX || ".",
-    SESSION_ID: process.env.SESSION_ID || "put session id here"
+    SESSION_ID: process.env.SESSION_ID || "put session id"
 };
