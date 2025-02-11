@@ -13,7 +13,6 @@ cmd({
     pattern: "block",
     desc: "Block a user.",
     category: "owner",
-    react: "🚫",
     filename: __filename
 },
 async (conn, mek, m, { from, isOwner, q, reply }) => {
@@ -34,7 +33,6 @@ cmd({
     pattern: "unblock",
     desc: "Unblock a user.",
     category: "owner",
-    react: "✅",
     filename: __filename
 },
 async (conn, mek, m, { from, isOwner, q, reply }) => {
@@ -59,8 +57,8 @@ cmd({
 }, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
         const number = config.OWNER_NUMBER || "+2348078582627";
-        const name = config.OWNER_NAME || "Only_one_🥇Empire";
-        const info = global.botname || "Empire_X";
+        const name = config.OWNER_NAME || "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
+        const info = global.botname || "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳";
 
         const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nORG:${info};\nTEL;type=CELL;type=VOICE;waid=${number.replace("+", "")}:${number}\nEND:VCARD`;
 
@@ -71,12 +69,47 @@ cmd({
             },
             contextInfo: {
     externalAdReply: {
-        title: global.botname || "Empire_X",
-        body: "Contact the owner",
+        title: global.botname || "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳",
+        body: "𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚝𝚑𝚎 𝚘𝚠𝚗𝚎𝚛",
         renderLargerThumbnail: true,
         thumbnailUrl: "https://files.catbox.moe/z7c67w.jpg",
         mediaType: 2,
-        sourceUrl: `https://wa.me/${number.replace("+", "")}?text=Hello Dev, I am ${pushname}`
+        sourceUrl: `https://wa.me/${number.replace("+", "")}?text=Hello, I am ${pushname}`
+    }
+}
+        }, { quoted: mek });
+    } catch (error) {
+        console.error("Error in owner command:", error);
+        reply("❌ An error occurred while sending the VCard.");
+    }
+});
+
+cmd({
+    pattern: "developer",
+    desc: "Sends the developer VCard.",
+    category: "owner",
+    filename: __filename,
+}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        const number = global.devs || "2348078582627";
+        const name = "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
+        const info = global.botname || "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳";
+
+        const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nORG:${info};\nTEL;type=CELL;type=VOICE;waid=${number.replace("+", "")}:${number}\nEND:VCARD`;
+
+        await conn.sendMessage(from, { 
+            contacts: { 
+                displayName: name, 
+                contacts: [{ vcard }] 
+            },
+            contextInfo: {
+    externalAdReply: {
+        title: global.botname || "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳",
+        body: "𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚝𝚑𝚎 𝚘𝚠𝚗𝚎𝚛",
+        renderLargerThumbnail: true,
+        thumbnailUrl: "https://files.catbox.moe/z7c67w.jpg",
+        mediaType: 2,
+        sourceUrl: `https://wa.me/${number.replace("+", "")}?text=Hello Developer, i am  ${pushname}`
     }
 }
         }, { quoted: mek });
@@ -102,7 +135,6 @@ async (conn, mek, m, { from, isOwner, reply }) => {
 // Owner details (Donation command)
 cmd({
     pattern: "aza",
-    react: "💵",
     alias: ["donate"],
     desc: "Get owner details",
     category: "owner",
@@ -110,13 +142,12 @@ cmd({
 }, async (conn, mek, m, { from, quoted }) => {
     try {
         let madeMenu = `
-╭━━━〔 Empire_X 〕━━━⬤
-┃𖠄│ Name: Efeurhobo Bullish
-┃𖠄│ Acc: 8078582627
-┃𖠄│ Bank: Opay
-┃𖠄│ Note: Send a screenshot after payment 💸
-┃𖠄╰──────────────⬤
-╰━━━━━━━━━━━━━━━⬤`;
+╭────「 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」────◆  
+│ ∘ 𝙽𝚊𝚖𝚎: 𝙴𝚏𝚎𝚞𝚛𝚑𝚘𝚋𝚘 𝙱𝚞𝚕𝚕𝚒𝚜𝚑  
+│ ∘ 𝙰𝚌𝚌: 8078582627  
+│ ∘ 𝙱𝚊𝚗𝚔: 𝙾𝚙𝚊𝚢  
+│ ∘ 𝙽𝚘𝚝𝚎: 𝚂𝚌𝚛𝚎𝚎𝚗𝚜𝚑𝚘𝚝 𝚊𝚏𝚝𝚎𝚛 𝚙𝚊𝚢𝚖𝚎𝚗𝚝 .
+╰────────────────────`;
 
         await conn.sendMessage(from, { 
             image: { 
