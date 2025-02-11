@@ -1,5 +1,5 @@
 const { cmd, commands } = require('../command');
-const { sleep } = require('../lib/functions');
+const { sleep } = require('../Lib/functions');
 const msg = require('../lib/msg');
 const axios = require('axios'); // Import axios
 
