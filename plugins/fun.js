@@ -93,7 +93,7 @@ cmd({
 // QUOTES COMMANDS
 //--------------------------------------------
 cmd({
-    pattern: "motivation",
+    pattern: "quotes",
     desc: "Get a motivational quote",
     category: "fun",
     filename: __filename
