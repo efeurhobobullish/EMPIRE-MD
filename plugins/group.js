@@ -112,8 +112,6 @@ cmd({
 //--------------------------------------------
 cmd({
     pattern: "delete",
-    react: "❌",
-    alias: ["dlt"],
     desc: "Delete a quoted message.",
     category: "group",
     filename: __filename,
