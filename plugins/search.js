@@ -1,3 +1,11 @@
+//---------------------------------------------
+//           EMPIRE-MD  
+//---------------------------------------------
+//  @project_name : EMPIRE-MD  
+//  @author       : efeurhobo  
+//  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
+//---------------------------------------------
+
 const axios = require('axios');
 const fg = require('api-dylux');
 const config = require('../config');
@@ -5,7 +13,9 @@ const { cmd, commands } = require('../command');
 const prefix = config.PREFIX; 
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../Lib/functions');
 
-// ss commands
+//--------------------------------------------
+// SS COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "ss",
     desc: "Screenshot a website",
@@ -22,7 +32,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => 
         }
 
         // Screenshot API endpoint with API key
-        const screenshotApi = `https://api.nexoracle.com/misc/ss-web?apikey=MepwBcqIM0jYN0okD&url=${encodeURIComponent(url)}`;
+        const screenshotApi = `https://api.giftedtech.web.id/api/tools/sstab?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
 
         // Fetch the screenshot (expecting JSON response)
         const response = await axios.get(screenshotApi);
@@ -42,8 +52,48 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => 
         reply(`An error occurred: ${e.response?.data?.error || e.message}`);
     }
 });
+//--------------------------------------------
+// SS WEB COMMANDS
+//--------------------------------------------
+cmd({
+    pattern: "ssweb",
+    desc: "Screenshot a website",
+    category: "search", // Category updated to 'search'
+    filename: __filename
+},
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => {
+    try {
+        if (!q) return reply("Please send the website URL to screenshot.");
 
+        const url = q.trim();
+        if (!/^https?:\/\//.test(url)) {
+            return reply("Please enter a valid URL starting with http:// or https://");
+        }
 
+        // Screenshot API endpoint with API key
+        const screenshotApi = `https://api.giftedtech.web.id/api/tools/ssweb?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
+
+        // Fetch the screenshot (expecting JSON response)
+        const response = await axios.get(screenshotApi);
+
+        // Check if the response contains a URL for the screenshot
+        if (response.data?.url) {
+            // Send the screenshot image from the URL (as the API likely returns the image URL)
+            await conn.sendMessage(from, {
+                image: { url: response.data.url },
+            }, { quoted: mek });
+        } else {
+            reply("No screenshot found for the provided URL.");
+        }
+
+    } catch (e) {
+        console.error(e.response?.data || e.message); // Log detailed error
+        reply(`An error occurred: ${e.response?.data?.error || e.message}`);
+    }
+});
+//--------------------------------------------
+// TRANSLATE COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "translate",
     desc: "Translate the given text to a specified language.",
@@ -83,7 +133,9 @@ cmd({
         return reply("❌ An error occurred while translating. Please try again later.");
     }
 });
-
+//--------------------------------------------
+// WEATHER COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "weather",
     desc: "🌤 Get weather information for a location",
@@ -100,18 +152,20 @@ async (conn, mek, m, { from, q, reply }) => {
         const response = await axios.get(url);
         const data = response.data;
         const weather = `
-🌍 *Weather Information for ${data.name}, ${data.sys.country}* 🌍
-🌡️ *Temperature*: ${data.main.temp}°C
-🌡️ *Feels Like*: ${data.main.feels_like}°C
-🌡️ *Min Temp*: ${data.main.temp_min}°C
-🌡️ *Max Temp*: ${data.main.temp_max}°C
-💧 *Humidity*: ${data.main.humidity}%
-☁️ *Weather*: ${data.weather[0].main}
-🌫️ *Description*: ${data.weather[0].description}
-💨 *Wind Speed*: ${data.wind.speed} m/s
-🔽 *Pressure*: ${data.main.pressure} hPa
+╭────「 𝚆𝙴𝙰𝚃𝙷𝙴𝚁 𝙸𝙽𝙵𝙾 」────◆  
+│ ∘ 𝙻𝚘𝚌𝚊𝚝𝚒𝚘𝚗: ${data.name}, ${data.sys.country}  
+│ ∘ 𝚃𝚎𝚖𝚙𝚎𝚛𝚊𝚝𝚞𝚛𝚎: ${data.main.temp}°C  
+│ ∘ 𝙵𝚎𝚎𝚕𝚜 𝙻𝚒𝚔𝚎: ${data.main.feels_like}°C  
+│ ∘ 𝙼𝚒𝚗 𝚃𝚎𝚖𝚙: ${data.main.temp_min}°C  
+│ ∘ 𝙼𝚊𝚡 𝚃𝚎𝚖𝚙: ${data.main.temp_max}°C  
+│ ∘ 𝙷𝚞𝚖𝚒𝚍𝚒𝚝𝚢: ${data.main.humidity}%  
+│ ∘ 𝚆𝚎𝚊𝚝𝚑𝚎𝚛: ${data.weather[0].main}  
+│ ∘ 𝙳𝚎𝚜𝚌𝚛𝚒𝚙𝚝𝚒𝚘𝚗: ${data.weather[0].description}  
+│ ∘ 𝚆𝚒𝚗𝚍 𝚂𝚙𝚎𝚎𝚍: ${data.wind.speed} m/s  
+│ ∘ 𝙿𝚛𝚎𝚜𝚜𝚞𝚛𝚎: ${data.main.pressure} hPa  
+╰────────────────────◆  
 
-> *${global.caption}*
+${global.caption}
 `;
         return reply(weather);
     } catch (e) {
