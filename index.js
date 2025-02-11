@@ -79,16 +79,14 @@ require("./plugins/" + plugin);
 });
 console.log('⏳ Checking External Plugins.!')
 console.log('✅ External Plugins Installed!')
-        let up = `╭─── 𝐸𝑀𝑃𝐼𝑅𝐸-𝑀𝐷 ────
-│ Prefix : [ ${prefix} ]
-│ Mode : ${mode}
-│ Platform : Linux
-╰────────────────`;
+        let up = `
+╭──「 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」───◆  
+│ ∘ 𝙿𝚛𝚎𝚏𝚒𝚡: [ ${prefix} ]  
+│ ∘ 𝙼𝚘𝚍𝚎: ${mode}  
+│ ∘ 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖: 𝙻𝚒𝚗𝚞𝚡  
+╰─────────────────`;
 
-conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, { 
-    image: { url: 'https://files.catbox.moe/r4decc.jpg'}, 
-    caption: up 
-     });
+conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, { text: up });
 }
 })
 conn.ev.on('creds.update', saveCreds)  
