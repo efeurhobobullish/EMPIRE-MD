@@ -46,11 +46,11 @@ cmd({
     const _0x39a514 = {
       'newsletterJid': '120363337275149306@newsletter',
       'newsletterName': "Empire_X",
-      'serverMessageId': 0x3e7
+      'serverMessageId': 143
     };
     const _0x5a943d = {
       'mentionedJid': [_0x208f73.sender],
-      'forwardingScore': 0x3e7,
+      'forwardingScore': 5,
       'isForwarded': true,
       'forwardedNewsletterMessageInfo': _0x39a514
     };
