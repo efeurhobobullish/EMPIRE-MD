@@ -251,7 +251,7 @@ await conn.sendMessage(from, { image: { url: data.profile }, caption: userInfo.c
 //  NPM COMMANDS
 //--------------------------------------------
 cmd({
-    pattern: "npm",
+    pattern: "npmstalk",
     desc: "Search for an NPM package",
     category: "stalker",
     filename: __filename
