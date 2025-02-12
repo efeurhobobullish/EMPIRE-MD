@@ -92,6 +92,7 @@ cmd({
 //--------------------------------------------
 // QUOTES COMMANDS
 //--------------------------------------------
+
 cmd({
     pattern: "quotes",
     desc: "Get a motivational quote",
@@ -99,14 +100,21 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/quotes?apikey=CBfmvL`);
-        return reply(`${data.result}`);
+        let response = await axios.get(`https://empire-tech-api.koyeb.app/api/fun/quotes?apikey=CBfmvL`);
+        
+        console.log("API Response:", response.data); // Debugging log
+
+        if (!response.data || typeof response.data !== "object" || !response.data.result) {
+            return reply("❌ Failed to fetch quote! Invalid response from API.");
+        }
+
+        let { author, text } = response.data.result;
+        return reply(`✨ *Quote of the Day* ✨\n\n"${text}"\n\n- *${author}*`);
     } catch (e) {
-        console.log(e);
-        reply(`Error: ${e.message}`);
+        console.log("Request Error:", e);
+        reply(`❌ Error: ${e.message}`);
     }
 });
-
 //--------------------------------------------
 // JOKES COMMANDS
 //--------------------------------------------
