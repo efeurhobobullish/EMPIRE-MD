@@ -171,22 +171,16 @@ cmd({
 //  INSULT COMMANDS
 //--------------------------------------------
 cmd({
-  pattern: "insult",
-  desc: "Get a random insult",
-  category: "fun",
-  react: "🤥",
-}, async (conn, m) => {
-  try {
-    let response = await axios.get('https://empire-tech-api.koyeb.app/api/fun/insult?apikey=CBfmvL');
-    let data = response.data;
-
-    if (!data || !data.insult) {
-      return await conn.sendMessage(m.key.remoteJid, { text: 'Unable to retrieve an insult. Please try again later.' });
+    pattern: "insult",
+    desc: "Get a random piece of insult",
+    category: "fun",
+    filename: __filename
+}, async (conn, mek, m, { from, reply }) => {
+    try {
+        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/insult?apikey=CBfmvL`);
+        return reply(`${data.result}`);
+    } catch (e) {
+        console.log(e);
+        reply(`Error: ${e.message}`);
     }
-
-    let insult = data.insult;
-    await conn.sendMessage(m.key.remoteJid, { text: `*Insult:* ${insult}` });
-  } catch (error) {
-    await conn.sendMessage(m.key.remoteJid, { text: `Error: ${error.message || error}` });
-  }
 });
