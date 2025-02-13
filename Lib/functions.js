@@ -69,19 +69,18 @@ const Json = (string) => {
 // Function to calculate and format uptime
 const runtime = (seconds) => {
     seconds = Math.floor(seconds);
-    const days = Math.floor(seconds / (24 * 60 * 60));
+    const d = Math.floor(seconds / (24 * 60 * 60));
     seconds %= 24 * 60 * 60;
-    const hours = Math.floor(seconds / (60 * 60));
+    const h = Math.floor(seconds / (60 * 60));
     seconds %= 60 * 60;
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
 
-    if (days > 0) return `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
-    if (hours > 0) return `${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
-    if (minutes > 0) return `${minutes} Minutes, ${seconds} Seconds`;
-    return `${seconds} Seconds`;
+    if (d > 0) return `${d}d ${h}h ${m}m ${s}s`;
+    if (h > 0) return `${h}h ${m}m ${s}s`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
 };
-
 // Delay execution for a specified time
 const sleep = async (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
