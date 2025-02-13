@@ -1,3 +1,11 @@
+//---------------------------------------------
+//           EMPIRE-MD  
+//---------------------------------------------
+//  @project_name : EMPIRE-MD  
+//  @author       : efeurhobo  
+//  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
+//---------------------------------------------
+
 const config = require('../config');
 const { cmd, commands } = require('../command');
 const { proto, downloadContentFromMessage } = require('@whiskeysockets/baileys');
@@ -6,9 +14,11 @@ const fs = require('fs');
 const exec = require('child_process');
 const path = require('path');
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../Lib/functions');
-
+const ownerNumber = [config.OWNER_NUMBER];
 const prefix = config.PREFIX;
-
+//--------------------------------------------
+//  BLOCK COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "block",
     desc: "Block a user.",
@@ -28,7 +38,9 @@ async (conn, mek, m, { from, isOwner, q, reply }) => {
         await conn.sendMessage(from, { text: `❌ Failed to block the user: ${err.message}` }, { quoted: mek });
     }
 });
-
+//--------------------------------------------
+// UN-BLOCK COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "unblock",
     desc: "Unblock a user.",
@@ -48,7 +60,9 @@ async (conn, mek, m, { from, isOwner, q, reply }) => {
         await conn.sendMessage(from, { text: `❌ Failed to unblock the user: ${err.message}` }, { quoted: mek });
     }
 });
-
+//--------------------------------------------
+//  OWNER COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "owner",
     desc: "Sends the owner's VCard.",
@@ -83,7 +97,9 @@ cmd({
         reply("❌ An error occurred while sending the VCard.");
     }
 });
-
+//--------------------------------------------
+//  DEVELOPER COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "developer",
     desc: "Sends the developer VCard.",
@@ -105,7 +121,7 @@ cmd({
             contextInfo: {
     externalAdReply: {
         title: global.botname || "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳",
-        body: "𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚝𝚑𝚎 𝚘𝚠𝚗𝚎𝚛",
+        body: "𝙲𝚘𝚗𝚝𝚊𝚌𝚝 𝚝𝚑𝚎 𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛",
         renderLargerThumbnail: true,
         thumbnailUrl: "https://files.catbox.moe/z7c67w.jpg",
         mediaType: 2,
@@ -118,7 +134,9 @@ cmd({
         reply("❌ An error occurred while sending the VCard.");
     }
 });
-
+//--------------------------------------------
+//  JID COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "jid",
     desc: "Get the Bot's JID.",
@@ -130,9 +148,9 @@ async (conn, mek, m, { from, isOwner, reply }) => {
     if (!isOwner) return reply("❌ You are not the owner!");
     reply(`🤖 *Bot JID:* ${conn.user.id}`);
 });
-
-
-// Owner details (Donation command)
+//--------------------------------------------
+//  DONATE COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "aza",
     alias: ["donate"],
@@ -160,8 +178,9 @@ cmd({
         await conn.sendMessage(from, { text: `${e}` }, { quoted: mek });
     }
 });
-
-
+//--------------------------------------------
+// SET-PP COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "setpp",
     desc: "Set bot profile picture.",
@@ -190,77 +209,155 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
         reply(`❌ Error updating profile picture: ${error.message}`);
     }
 });
-
+//--------------------------------------------
+//  VV COMMANDS
+//--------------------------------------------
 cmd({
-    pattern: "viewonce",
-    desc: "Send viewOnce media as normal image/video",
+    pattern: "vv",
+    desc: "Get view once.",
     category: "owner",
+    react: "👀",
     filename: __filename
-}, async (conn, mek, m, { from, reply, quoted }) => {
-    if (!quoted || !quoted.message.viewOnceMessage) {
-        return reply("❌ Please reply to a viewOnce message with an image or video.");
-    }
-
+}, async (conn, mek, m, { isReply, quoted, reply }) => {
     try {
-        // Get the media file (image/video) from the viewOnce message
-        const media = await downloadMediaMessage(quoted, 'viewonce_media');
-        const mediaType = quoted.message.viewOnceMessage.message.imageMessage ? 'image' : 'video';
+        // Check if the message is a view once message
+        if (!m.quoted) return reply("Please reply to a view once message!");
 
-        // Send the media as normal
-        if (mediaType === 'image') {
-            conn.sendMessage(m.chat, { image: media, caption: "Here's the image!" }, { quoted: m });
-        } else if (mediaType === 'video') {
-            conn.sendMessage(m.chat, { video: media, caption: "Here's the video!" }, { quoted: m });
-        }
+        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
         
-        reply("✅ ViewOnce media sent as normal!");
+            const mediaMessage = qmessage.imageMessage ||
+                                qmessage.videoMessage ||
+                                qmessage.audioMessage;
+                                
+            if (!mediaMessage?.viewOnce) {
+              return reply("_Not A VV message")
+            }
 
+            try {
+            const buff = await m.quoted.getbuff
+            const cap = mediaMessage.caption || '';
+            
+            if (mediaMessage.mimetype.startsWith('image')) {
+                  await conn.sendMessage(m.chat, {
+                  image: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('video')) {
+              await conn.sendMessage(m.chat, {
+                  video: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('audio')) {
+              await conn.sendMessage(m.chat, {
+                  audio: buff,
+                  ptt: mediaMessage.ptt || false
+         }); 
+            } else {
+              return reply("_*Unkown/Unsupported media*_");
+        }
     } catch (error) {
-        console.error("Error processing viewOnce message:", error);
-        reply(`❌ Error: ${error.message}`);
+        console.error(error);
+        reply(`${error}`)
+    }
+} catch (e) {
+  console.error(e);
+        reply(`${e}`);
+}
+});
+//--------------------------------------------
+//  VV-2 COMMANDS
+//--------------------------------------------
+cmd({
+    pattern: "vv2",
+    desc: "Get view once to owner chat.",
+    category: "owner",
+    react: "👀",
+    filename: __filename
+}, async (conn, mek, m, { isReply, quoted, reply }) => {
+    try {
+        if (!m.quoted) return reply("Please reply to a view once message!");
+
+        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
+        const mediaMessage = qmessage.imageMessage ||
+                             qmessage.videoMessage ||
+                             qmessage.audioMessage;
+
+        if (!mediaMessage?.viewOnce) {
+            return reply("_Not A VV message_");
+        }
+
+        try {
+            const buff = await m.quoted.getbuff;
+            const cap = mediaMessage.caption || '';
+
+            if (mediaMessage.mimetype.startsWith('image')) {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    image: buff,
+                    caption: cap
+                }); 
+            } else if (mediaMessage.mimetype.startsWith('video')) {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    video: buff,
+                    caption: cap
+                }); 
+            } else if (mediaMessage.mimetype.startsWith('audio')) {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    audio: buff,
+                    ptt: mediaMessage.ptt || false
+                }); 
+            } else {
+                return reply("_*Unknown/Unsupported media*_");
+            }
+        } catch (error) {
+            console.error(error);
+            reply(`${error}`);
+        }
+    } catch (e) {
+        console.error(e);
+        reply(`${e}`);
     }
 });
-
+//--------------------------------------------
+//  SAVE COMMANDS
+//--------------------------------------------
 cmd({
     pattern: "save",
-    desc: "Save and send back a media file (image, video, or audio).",
+    desc: "Get status or media message.",
     category: "owner",
-    filename: __filename,
+    react: "👀",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        if (!quoted) return reply("Please reply to a media message!");
 
-    async execute(conn, mek, m, {from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) {
-        // Ensure there is a quoted message or a viewOnce message
-        const quotedMessage = quoted || m.quoted;
+        try {
+            const buff = await quoted.getbuff;
+            const cap = quoted.msg.caption || '';
 
-        if (!quotedMessage) {
-            return reply('Please reply to a status message with the media you want to save.');
-        }
-
-        const mediaType = quotedMessage.type || (m.quoted ? m.quoted.type : null);
-
-        // Check if the quoted message contains media (image, video, or audio)
-        if (mediaType === 'imageMessage' || mediaType === 'videoMessage' || mediaType === 'audioMessage') {
-            try {
-                // Handle viewOnce messages by checking if the message is a viewOnce type
-                const mediaBuffer = await downloadMediaMessage(quotedMessage, 'saved_media_' + Date.now());
-
-                // Send the media back to the user via DM
-                if (mediaType === 'imageMessage') {
-                    conn.sendMessage(sender, mediaBuffer, MessageType.image, { caption: 'Here is your saved image!' });
-                } else if (mediaType === 'videoMessage') {
-                    conn.sendMessage(sender, mediaBuffer, MessageType.video, { caption: 'Here is your saved video!' });
-                } else if (mediaType === 'audioMessage') {
-                    conn.sendMessage(sender, mediaBuffer, MessageType.audio, { ptt: false, mimetype: 'audio/mpeg' });
-                }
-
-                // Optionally save the media to disk (if needed)
-                // fs.writeFileSync(`saved_${filename}`, mediaBuffer); // Uncomment if you want to save it locally
-
-            } catch (error) {
-                console.error(error);
-                reply('An error occurred while downloading or sending the media.');
+            if (quoted.type === 'imageMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    image: buff,
+                    caption: cap
+                }); 
+            } else if (quoted.type === 'videoMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    video: buff,
+                    caption: cap
+                }); 
+            } else if (quoted.type === 'audioMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    audio: buff,
+                    ptt: quoted.msg.ptt || false
+                }); 
+            } else {
+                return reply("_*Unknown/Unsupported media*_");
             }
-        } else {
-            reply('The replied message does not contain any media.');
+        } catch (error) {
+            console.error(error);
+            reply(`${error}`);
         }
+    } catch (e) {
+        console.error(e);
+        reply(`${e}`);
     }
 });
