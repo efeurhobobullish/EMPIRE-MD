@@ -605,30 +605,27 @@ cmd({
 //--------------------------------------------
 cmd({
     pattern: "tagall",
-    category: "group", // Already group
+    category: "group",
     desc: "Tags every person in the group.",
     filename: __filename,
 }, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber, pushname, groupMetadata, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
         if (!isGroup) return reply("𝐓𝐡𝐢𝐬 𝐅𝐞𝐚𝐭𝐮𝐫𝐞 𝐈𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐆𝐫𝐨𝐮𝐩❗");
-        
-        // Fetch group metadata to get participants
-        groupMetadata = await conn.groupMetadata(from);
-        participants = groupMetadata.participants;
 
         let textt = `
-◐╤╤✪〘 *Tag All* 〙✪╤╤◑
+╭───「 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」───◆  
+│ ∘ 𝙼𝚎𝚜𝚜𝚊𝚐𝚎: ${args.join(' ') || "blank"}  
+│ ∘ 𝙰𝚞𝚝𝚑𝚘𝚛: ${pushname}  
+│ ∘ 𝙼𝚎𝚖𝚋𝚎𝚛𝚜: ${participants.length}  
+│ ∘ ─────────────────
+`;
 
-➲ *Message:* ${args.join(' ') || "blank"}\n\n
-➲ *Author:* ${pushname}
-        `;
-        
-        // Loop through participants and tag each member
+        // Loop through participants and format mentions
         for (let mem of participants) {
-            textt += `📌 @${mem.id.split('@')[0]}\n`;
+            textt += `│ ∘  @${mem.id.split('@')[0]}\n`;
         }
 
-        // Send the tagged message
+        // Send the message with mentions
         await conn.sendMessage(from, {
             text: textt,
             mentions: participants.map(a => a.id),
@@ -698,16 +695,12 @@ cmd({
 //--------------------------------------------
 cmd({
     pattern: "tagadmin",
-    category: "group", // Already group
+    category: "group",
     desc: "Tags every admin in the group.",
     filename: __filename,
 }, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber, pushname, groupMetadata, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
         if (!isGroup) return reply("𝐓𝐡𝐢𝐬 𝐅𝐞𝐚𝐭𝐮𝐫𝐞 𝐈𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐆𝐫𝐨𝐮𝐩❗");
-
-        // Fetch group metadata to get participants
-        groupMetadata = await conn.groupMetadata(from);
-        participants = groupMetadata.participants;
 
         // Filter out non-admins
         let adminParticipants = participants.filter(mem => groupAdmins.includes(mem.id));
@@ -717,18 +710,19 @@ cmd({
         }
 
         let textt = `
-◐╤╤✪〘 *Tag All Admins* 〙✪╤╤◑
+╭───「 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」───◆  
+│ ∘ 𝙼𝚎𝚜𝚜𝚊𝚐𝚎: ${args.join(' ') || "blank"}  
+│ ∘ 𝙰𝚞𝚝𝚑𝚘𝚛: ${pushname}  
+│ ∘ 𝙰𝚍𝚖𝚒𝚗𝚜: ${adminParticipants.length}  
+│ ∘ ─────────────────
+`;
 
-➲ *Message:* ${args.join(' ') || "blank"}\n\n
-➲ *Author:* ${pushname}
-        `;
-
-        // Loop through admin participants and tag each admin
+        // Loop through admin participants and format mentions
         for (let mem of adminParticipants) {
-            textt += `📌 @${mem.id.split('@')[0]}\n`;
+            textt += `│ ∘  @${mem.id.split('@')[0]}\n`;
         }
 
-        // Send the tagged message
+        // Send the message with mentions
         await conn.sendMessage(from, {
             text: textt,
             mentions: adminParticipants.map(a => a.id),
@@ -912,11 +906,10 @@ cmd({
 cmd({
     pattern: "ginfo",
     desc: "Get group information.",
-    category: "group", // Group related command
+    category: "group",
     filename: __filename,
 }, async (conn, mek, m, { from, quoted, body, args, q, isGroup, sender, reply }) => {
     try {
-        // Ensure this is being used in a group
         if (!isGroup) return reply("𝐓𝐡𝐢𝐬 𝐅𝐞𝐚𝐭𝐮𝐫𝐞 𝐈𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐆𝐫𝐨𝐮𝐩❗");
 
         // Get group metadata
@@ -924,23 +917,27 @@ cmd({
         const groupName = groupMetadata.subject;
         const groupAdmins = groupMetadata.participants.filter(member => member.admin);
         const memberCount = groupMetadata.participants.length;
+        const adminList = groupAdmins.map(admin => `│ ∘  @${admin.id.split('@')[0]}`).join("\n") || "│ ∘ No admins";
 
-        // Get group information
-        const groupInfo = `
-       
-        *📋 Group Information:*
-        *Group Name:* ${groupName}
-        *Group ID:* ${from}
-        *Total Members:* ${memberCount}
-        *Group Admins:* ${groupAdmins.map(admin => admin.id.split('@')[0]).join(", ") || "No admins"} 
-        `;
+        // Format the output
+        let textt = `
+╭───「 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 」───◆  
+│ ∘ 𝙶𝚛𝚘𝚞𝚙: ${groupName}  
+│ ∘ 𝙶𝚛𝚘𝚞𝚙 𝙸𝙳: ${from}  
+│ ∘ 𝚃𝚘𝚝𝚊𝚕 𝙼𝚎𝚖𝚋𝚎𝚛𝚜: ${memberCount}  
+│ ∘ ─────────────────  
+${adminList}
+`;
 
         // Send the group information
-        return reply(groupInfo);
+        await conn.sendMessage(from, {
+            text: textt,
+            mentions: groupAdmins.map(a => a.id),
+        }, { quoted: mek });
 
     } catch (error) {
-        console.error("Error in groupinfo command:", error);
-        reply(`An error occurred: ${error.message || "Unknown error"}`);
+        console.error("Error in ginfo command:", error);
+        reply("An error occurred while retrieving the group information.");
     }
 });
 
