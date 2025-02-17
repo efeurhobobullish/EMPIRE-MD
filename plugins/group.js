@@ -173,6 +173,35 @@ cmd({
   }
 });
 //--------------------------------------------
+RANDOM SHIP COMMANDS
+//--------------------------------------------
+cmd({
+    pattern: "randomship",
+    desc: "Randomly ship two members in a group.",
+    category: "group",
+    react: "💞",
+    filename: __filename
+}, async (conn, mek, m, { from, isGroup, participants, reply }) => {
+    try {
+        if (!isGroup) return reply("❌ This command can only be used in groups!");
+        
+        const members = participants.filter(p => !p.admin); // Exclude admins if needed
+        if (members.length < 2) return reply("❌ Not enough members to ship!");
+
+        const shuffled = members.sort(() => Math.random() - 0.5);
+        const user1 = shuffled[0].id;
+        const user2 = shuffled[1].id;
+
+        reply(`💖 I randomly ship @${user1.split("@")[0]} & @${user2.split("@")[0]}! Cute couple! 💞`, {
+            mentions: [user1, user2]
+        });
+
+    } catch (e) {
+        console.error(e);
+        reply("❌ Error processing command.");
+    }
+});
+//--------------------------------------------
 //  NEW_GC COMMANDS
 //--------------------------------------------
 cmd({
