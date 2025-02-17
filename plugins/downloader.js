@@ -370,38 +370,37 @@ cmd({
 //---------------------------------------------------------------------------
 cmd({
     pattern: "gitclone",
-    desc: "Clone GitHub Repositories",
-    category: "downloader",
-    react: "🌐",
-    filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    desc: "Clone a GitHub repository.",
+    category: "download",
+    filename: __filename,
+}, async (conn, mek, m, { args, reply }) => {
     try {
-        if (!q) return reply("Please provide the GitHub repository URL.");
+        const repoUrl = args[0];
+        if (!repoUrl) {
+            return reply("Please provide the GitHub repository URL.");
+        }
 
-        const repoUrl = q;
-        const apiUrl = `https://api.giftedtech.web.id/api/download/gitclone?apikey=_0x5aff35,_0x1876stqr&url=${repoUrl}`;
+        // Send the API request to fetch the download URL for the GitHub repository
+        const response = await axios.get(`https://api.giftedtech.my.id/api/download/gitclone?apikey=gifted&url=${encodeURIComponent(repoUrl)}`);
+        const result = response.data.result;
 
-        // Send message with repository information
-        let desc = `
-╭───「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──◆
-│  
-│ ∘ 𝙲𝚕𝚘𝚗𝚒𝚗𝚐 𝚁𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢  
-│────────────────
-│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚁𝚎𝚙𝚘 𝙻𝚒𝚗𝚔: ${repoUrl}  
-│────────────────
-│ ${global.caption}  
-╰────────────────`;
-        await conn.sendMessage(from, { text: desc }, { quoted: mek });
+        if (!result || !result.url) {
+            return reply("❌ Unable to fetch the GitHub repository. Please check the URL and try again.");
+        }
 
-        await conn.sendMessage(from, {
-            document: { url: apiUrl },
+        const downloadUrl = result.url;
+
+        // Send the repository ZIP file to the user
+        await conn.sendMessage(m.from, {
+            document: { url: downloadUrl },
+            fileName: "repository.zip",
             mimetype: "application/zip",
-            fileName: `${repoUrl.split("/").pop()}.zip`
-        }, { quoted: mek });
-
-    } catch (e) {
-        console.log(e);
-        reply(`❌ Error: ${e.message || e.response?.data?.error || e}`);
+            caption: "GitHub Repository Download",
+        });
+        await m.react("✅");
+    } catch (err) {
+        console.error("Error fetching GitHub repository URL:", err);
+        return reply("❌ Unable to fetch GitHub repository. Please try again later.");
     }
 });
 //---------------------------------------------------------------------------
