@@ -17,7 +17,7 @@ const prefix = config.PREFIX; // Get the prefix from the config
  }, async (conn, mek, m, { args, reply }) => { 
      try {
          if (!args[0]) 
-             return reply(Use ${config.PREFIX}force2 <amount>\nExample: ${config.PREFIX}force2 5);
+             return reply(Use ${prefix}force2 <amount>);
      
 let amount = parseInt(args[0]) || 10;
     reply(`Please wait! Sending \`${amount}\` force2 messages...`);
