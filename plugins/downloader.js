@@ -371,7 +371,7 @@ cmd({
 cmd({
     pattern: "gitclone",
     desc: "Clone a GitHub repository.",
-    category: "download",
+    category: "downloader",
     filename: __filename,
 }, async (conn, mek, m, { args, reply }) => {
     try {
