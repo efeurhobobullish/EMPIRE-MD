@@ -173,7 +173,7 @@ cmd({
   }
 });
 //--------------------------------------------
-RANDOM SHIP COMMANDS
+// RANDOM SHIP COMMANDS
 //--------------------------------------------
 cmd({
     pattern: "randomship",
