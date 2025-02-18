@@ -14,31 +14,31 @@ services:
     regions:
       - fra
     envVars:
+      - key: ALWAYS_ONLINE
+        value: "false"
+      - key: ANTICALL
+        value: "false"
+      - key: ANTICALL_MSG
+        value: "*_📞 Auto Call Reject Mode Active. 📵 No Calls Allowed!_*"
       - key: ANTILINK
-        value: "true"
+        value: "false"
       - key: AUTO_LIKE_EMOJI
-        value: "💜"
+        value: "💚"
       - key: AUTO_LIKE_STATUS
+        value: "false"
+      - key: AUTO_RECORDING
+        value: "false"
+      - key: AUTO_TYPING
         value: "false"
       - key: AUTO_VIEW_STATUS
         value: "false"
       - key: MODE
         value: "private"
       - key: OWNER_NAME
-        value: "Ony_one_🥇Empire"
+        value: "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]"
       - key: OWNER_NUMBER
-        value: "2348144250768"
+        value: "put owner number"
       - key: PREFIX
         value: "."
       - key: SESSION_ID
-        value: "bJdhVYhK#e_BAHdprhe2k9TqojU6xq8t3PjbrFJdb_g_77vhonQg"
-      - key: AUTO_TYPING
-        value: "false"
-      - key: ALWAYS_ONLINE
-        value: "false"
-      - key: AUTO_RECORDING
-        value: "false"
-      - key: ANTICALL
-        value: "false"
-      - key: ANTICALL_MSG
-        value: "*_📞 Auto Call Reject Mode Active. 📵 No Calls Allowed!_*"
+        value: "put session id"
