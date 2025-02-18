@@ -44,7 +44,7 @@ cmd({
 
       const { title, download_url } = json.result;
 
-      await reply(`Downloading: *_${title}_*`);
+      await reply(`_Downloading ${title}_`);
 
       await conn.sendMessage(
         from,
@@ -71,80 +71,44 @@ cmd({
     alias: ["mp4"],
     desc: "Download songs",
     category: "downloader",
-    react: "🎶",
-    filename: __filename,
+    react: "⏳",
+    filename: __filename, 
   },
   async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
    try {
       if (!q) return reply("Send me url or title name");
 
-      // Search for the video
       const search = await yts(q);
       const data = search.videos[0];
       const url = data.url;
-      // Build a download URL; adjust the endpoint as needed.
-      const downloadUrl = `https://api.giftedtech.web.id/api/download/ytmp4?apikey=_0x5aff35,_0x1876stqr&url=${url}`;
 
-      // Build the info message
-      const infoMessage = {
-        image: { url: data.thumbnail },
-        caption: `
-╭────「 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁 」──────◆  
-│   
-│ ∘ 𝚃𝚒𝚝𝚕𝚎: ${data.title}  
-│ ∘ 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: 𝚖𝚙4 (720p)  
-│ ∘ 𝙳𝚞𝚛𝚊𝚝𝚒𝚘𝚗: ${data.timestamp}  
-│ ∘ 𝚅𝚒𝚎𝚠𝚎𝚛𝚜: ${data.views}  
-│ ∘ 𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚍: ${data.ago}  
-│ ∘ 𝙰𝚛𝚝𝚒𝚜𝚝: ${data.author.name}  
-│───────────────────────  
-│ ∘ 𝙳𝚒𝚛𝚎𝚌𝚝 𝚈𝚝 𝙻𝚒𝚗𝚔: ${url}  
-│───────────────────────  
-│ ${global.caption}  
-╰───────────────────────`,
-        contextInfo: {
-          mentionedJid: [mek.sender],
-          forwardingScore: 5,
-          isForwarded: true,
-          forwardedNewsletterMessageInfo: {
-            newsletterJid: "120363337275149306@newsletter",
-            newsletterName: global.botname,
-            serverMessageId: 143,
-          },
-        },
-      };
+      const response = await fetch(
+        `https://api.giftedtech.web.id/api/download/ytmp4?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`
+      );
+      const json = await response.json();
+      
+      if (!json.success) return reply("❌ Failed to fetch video. Please try again.");
 
-      // Send the info message
-      await conn.sendMessage(from, infoMessage, { quoted: mek });
+      const { title, download_url } = json.result;
 
-      // Send the audio file with additional context (such as externalAdReply)
+      return reply(`_Downloading ${title}_`);
+
       await conn.sendMessage(
         from,
         {
-          video: { url: downloadUrl },
-          fileName: `${data.title}.mp4`,
+          video: { url: download_url },
           mimetype: "video/mp4",
-          contextInfo: {
-            externalAdReply: {
-              showAdAttribution: false,
-              title: data.title,
-              body: global.botname,
-              thumbnailUrl: data.thumbnail,
-              sourceUrl: global.channelUrl,
-              mediaType: 1,
-              renderLargerThumbnail: false,
-            },
-          },
         },
         { quoted: mek }
       );
-      // React to confirm completion
+
       await m.react("✅");
     } catch (e) {
-      console.error("Error in play command:", e);
+      console.error("Error in video command:", e);
       reply(`❌ Error: ${e.message}`);
     }
   });
+
 //---------------------------------------------------------------------------
 //            TIKTOK COMMANDS
 //---------------------------------------------------------------------------
