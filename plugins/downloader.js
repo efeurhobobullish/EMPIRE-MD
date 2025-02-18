@@ -36,7 +36,7 @@ cmd({
       const data = search.videos[0];
       const url = data.url;
       // Build a download URL; adjust the endpoint as needed.
-      const downloadUrl = `https://api.giftedtech.web.id/api/download/ytmp3?apikey=_0x5aff35,_0x1876stqr&url=${url}`;
+      const downloadUrl = `https://empire-tech-api.koyeb.app/api/download/ytmp3?apikey=CBfmvL&url=${url}`;
 
       // Build the info message
       const infoMessage = {
