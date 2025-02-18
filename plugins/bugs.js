@@ -1,5 +1,4 @@
-const { cmd, commands } = require('../command'); const config = require('../config'); const { default: makeWASocket, proto } = require('@whiskeysockets/baileys');
-
+const { cmd, commands } = require('../command'); const config = require('../config');
 const prefix = config.PREFIX; // Get the prefix from the config
 
 // Global bug message configuration
