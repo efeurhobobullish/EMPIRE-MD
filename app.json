@@ -62,7 +62,7 @@
     },
     "OWNER_NUMBER": {
       "required": true,
-      "value": "2348078582627",
+      "value": "2348144250768",
       "description": "Put your own number below."
     },
     "PREFIX": {
@@ -72,7 +72,7 @@
     },
     "SESSION_ID": {
       "required": true,
-      "value": "fill session id here ",
+      "value": "rR4iXSpT#1P5Jw3lWouMKwHiQd7xZ-XHQuqdXWdf4zCVj7GYxZXo",
       "description": "Put session ID below."
     }
   },
