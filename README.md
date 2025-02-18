@@ -24,7 +24,7 @@
 3. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Heroku](/)***  
 4. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Replit](https://replit.com/github/efeurhobobullish/EMPIRE-MD.git)***  
 5. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Railway]()***  
-6. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Koyeb]()***
+6. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Koyeb](https://app.koyeb.com/deploy?name=empire-md&repository=efeurhobobullish%2FEMPIRE-MD&branch=main&builder=dockerfile&instance_type=free&env%5BALWAYS_ONLINE%5D=false&env%5BANTICALL_MSG%5D=*_%F0%9F%93%9E+Auto+Call+Reject+Mode+Active.+%F0%9F%93%B5+No+Calls+Allowed%21_*&env%5BANTICALL%5D=false&env%5BAUTO_LIKE_STATUS%5D=false&env%5BAUTO_LIKE_EMOJI%5D=%F0%9F%92%9A&env%5BMODE%5D=private&env%5BAUTO_VIEW_STATUS%5D=false&env%5BAUTO_TYPING%5D=false&env%5BAUTO_RECORDING%5D=false&env%5BSESSION_ID%5D=rR4iXSpT%231P5Jw3lWouMKwHiQd7xZ-XHQuqdXWdf4zCVj7GYxZXo&env%5BOWNER_NAME%5D=%F0%9D%99%B4%F0%9D%9A%96%F0%9D%9A%99%F0%9D%9A%92%F0%9D%9A%9B%F0%9D%9A%8E+%F0%9D%9A%83%F0%9D%9A%8E%F0%9D%9A%8C%F0%9D%9A%91&env%5BOWNER_NUMBER%5D=2348144250768&env%5BPREFIX%5D=)***
 7. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Glitch]()***  
 8. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Render]()***  
 9. ***𝐷𝑒𝑝𝑙𝑜𝑦 𝑜𝑛 [Bot Hosting](https://bot-hosting.net/?aff=1148117314785529946)***
