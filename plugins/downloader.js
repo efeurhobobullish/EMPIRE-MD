@@ -36,7 +36,7 @@ cmd({
       const data = search.videos[0];
       const url = data.url;
       // Build a download URL; adjust the endpoint as needed.
-      const downloadUrl = `https://empiretech-ytdl-api.hf.space/api/yt?query=${url}`;
+      const downloadUrl = `https://giftedtech-ytdl-api.hf.space/api/yt?query=${url}`;
 
       // Build the info message
       const infoMessage = {
