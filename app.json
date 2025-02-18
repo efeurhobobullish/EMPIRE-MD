@@ -57,12 +57,12 @@
     },
     "OWNER_NAME": {
       "required": true,
-      "value": "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]",
+      "value": "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑",
       "description": "Owner name."
     },
     "OWNER_NUMBER": {
       "required": true,
-      "value": "2349014277524",
+      "value": "2348144250768",
       "description": "Put your own number below."
     },
     "PREFIX": {
@@ -72,7 +72,7 @@
     },
     "SESSION_ID": {
       "required": true,
-      "value": "jVhwTA5L#DDFsO-BVtPlDsTyzrx70FX0J_e2jTS-6cOPypfmcHsw",
+      "value": "mR42RLzb#X3SQ3S5E-t5Os1NwDelZ3ZML0Zygg_-ENndGKZkHpG4",
       "description": "Put session ID below."
     }
   },
