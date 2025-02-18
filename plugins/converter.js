@@ -1,7 +1,6 @@
 const { cmd } = require('../command');
 const axios = require('axios');
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson, tourl } = require('../Lib/functions');
-const { downloadMediaMessage } = require('..Lib/msg');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const fs = require('fs');
 const path = require('path');
