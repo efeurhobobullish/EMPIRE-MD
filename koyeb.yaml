@@ -7,7 +7,7 @@ services:
       build_context: .
       dockerfile: Dockerfile
     ports:
-      - 3000
+      - 8000
     routes:
       - src: /
         dest: /
