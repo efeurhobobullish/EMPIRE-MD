@@ -15,8 +15,7 @@ function convertToBool(text, fault = 'true') {
 //═════[Don't Change Variables]════════\\
 
 global.alive_img = "📞 𝙰𝚞𝚝𝚘 𝙲𝚊𝚕𝚕 𝚁𝚎𝚓𝚎𝚌𝚝 𝙼𝚘𝚍𝚎 𝙰𝚌𝚝𝚒𝚟𝚎.📵 𝙽𝚘 𝙲𝚊𝚕𝚕𝚜 𝙰𝚕𝚕𝚘𝚠𝚎𝚍!";
-global.caption = "[ 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 ]  
-𝙿𝚘𝚠𝚎𝚛𝚎𝚍 𝚋𝚢 𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
+global.caption = "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳 𝙿𝚘𝚠𝚎𝚛𝚎𝚍 𝚋𝚢 𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
 global.channelUrl = "https://whatsapp.com/channel/0029VajVvpQIyPtUbYt3Oz0k";
 global.botname = "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳";
 global.devs = "2348078582627" // Developer Contact
