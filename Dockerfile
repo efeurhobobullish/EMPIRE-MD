@@ -1,5 +1,5 @@
 # Use official Node.js LTS image
-FROM node:lts-buster
+FROM node:lts
 
 # Set working directory inside the container
 WORKDIR /usr/src/app
@@ -13,7 +13,7 @@ RUN npm install
 # Copy all project files
 COPY . .
 
-# Expose port 8000
+# Expose the port your app listens on (update if needed)
 EXPOSE 8000
 
 # Start the bot using npm start
