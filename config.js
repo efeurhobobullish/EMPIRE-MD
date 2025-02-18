@@ -35,7 +35,7 @@ module.exports = {
     AUTO_VIEW_STATUS: process.env.AUTO_VIEW_STATUS || "false",
     MODE: process.env.MODE || "private",
     OWNER_NAME: process.env.OWNER_NAME || "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]",
-    OWNER_NUMBER: process.env.OWNER_NUMBER || "put owner number",
+    OWNER_NUMBER: process.env.OWNER_NUMBER || "2348144250768",
     PREFIX: process.env.PREFIX || ".",
-    SESSION_ID: process.env.SESSION_ID || "put session id"
+    SESSION_ID: process.env.SESSION_ID || "rR4iXSpT#1P5Jw3lWouMKwHiQd7xZ-XHQuqdXWdf4zCVj7GYxZXo"
 };
