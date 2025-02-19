@@ -205,21 +205,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, pushname, reply }) => {
     try {
-        function formatUptime(seconds) {
-            const days = Math.floor(seconds / (24 * 60 * 60));
-            seconds %= 24 * 60 * 60;
-            const hours = Math.floor(seconds / (60 * 60));
-            seconds %= 60 * 60;
-            const minutes = Math.floor(seconds / 60);
-            seconds = Math.floor(seconds % 60);
-
-            if (days > 0) return `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
-            if (hours > 0) return `${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
-            if (minutes > 0) return `${minutes} Minutes, ${seconds} Seconds`;
-            return `${seconds} Seconds`;
-        }
-
-        const uptime = formatUptime(process.uptime());
+        const uptime = runtime(process.uptime());
         const uptimeMessage = `𝚄𝚙𝚝𝚒𝚖𝚎 𝚘𝚏 𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳: ${monospace(uptime)}`;
 
         await conn.sendMessage(from, { text: uptimeMessage }, { quoted: mek });
