@@ -42,18 +42,16 @@ const apiKey = "MepwBcqIM0jYN0okD";
     const emails = response.result;
     if (!emails || emails.length === 0) return reply("📭 No new emails!");
 
-    const msg = `📬 *Inbox for Email ID:* ${q}\n\n`;
-    emails.forEach((email, i) => {
-        msg += `📩 *Email ${i + 1}*\n📝 Subject: ${email.subject}\n📅 Date: ${email.date}\n📨 Sender: ${email.from}\n📄 Message: ${email.text}\n\n`;
-    });
+    const msgHeader = `📬 *Inbox for Email ID:* ${q}\n\n`;
+let msgBody = '';
 
-            await conn.sendMessage(from, msg, { quoted: mek });
-} catch (e) {
-    console.error(e);
-    reply("❌ An error occurred!");
-}
-
+emails.forEach((email, i) => {
+    msgBody += `📩 *Email ${i + 1}*\n📝 Subject: ${email.subject}\n📅 Date: ${email.date}\n📨 Sender: ${email.from}\n📄 Message: ${email.text}\n\n`;
 });
+
+const msg = msgHeader + msgBody;
+
+await conn.sendMessage(from, msg, { quoted: mek });
 
 cmd({ pattern: "delmail", desc: "Delete stored temporary email", category: "emails", filename: __filename }, async (conn, mek, m, { reply }) => { try { if (!global.tempmail) return reply("❌ No temporary email found!");
 
