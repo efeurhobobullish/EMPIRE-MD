@@ -21,6 +21,7 @@ if (response.status !== 200) return reply("❌ Failed to generate temp mail!");
         email: response.result.email,
         email_id: response.result.email_id,
         expire_at: response.result.expire_at
+
     };
 
    return reply(`📩 *Temporary Email Created*\n\n📧 Email: ${global.tempmail.email}\n🆔 Email ID: ${global.tempmail.email_id}\n⏳ Expires At: ${global.tempmail.expire_at}`);
