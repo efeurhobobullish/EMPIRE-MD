@@ -36,5 +36,5 @@ module.exports = {
     OWNER_NAME: process.env.OWNER_NAME || "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑",
     OWNER_NUMBER: process.env.OWNER_NUMBER || "2348144250768",
     PREFIX: process.env.PREFIX || ".",
-    SESSION_ID: process.env.SESSION_ID || "HFZD1aQL#LsYqpqDnPfpWlTMx86Z875A_sz-dm2q8lBih5mNSNEA"
+    SESSION_ID: process.env.SESSION_ID || "qcgBnSLb#zHmKxAtWL-bPc5DJOGMjwFxNuQbNZP6sLEE87bNB14g"
 };
