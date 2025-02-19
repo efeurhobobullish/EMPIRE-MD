@@ -1,0 +1,77 @@
+const config = require('../config');
+const { cmd, commands } = require('../command');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../Lib/functions');
+
+
+cmd({
+  pattern: "tempmail",
+  desc: "Generate a temporary email",
+  category: "emails",
+  react: "📩",
+  filename: __filename
+}, async (conn, mek, m, { reply, fetchJson }) => {
+  try {
+    const apiKey = "MepwBcqIM0jYN0okD";
+    const apiUrl = `https://api.nexoracle.com/misc/temp-mail-gen?apikey=${apiKey}`;
+    const response = await fetchJson(apiUrl);
+
+    if (response.status !== 200) return reply("❌ Failed to generate temp mail!");
+
+    global.tempmail = {
+      email: response.result.email,
+      email_id: response.result.email_id,
+      expire_at: response.result.expire_at
+    };
+
+    reply(`📩 *Temporary Email Created*\n\n📧 Email: ${global.tempmail.email}\n🆔 Email ID: ${global.tempmail.email_id}\n⏳ Expires At: ${global.tempmail.expire_at}`);
+  } catch (err) {
+    reply("❌ Error generating temp mail!");
+  }
+});
+
+cmd({
+  pattern: "checkmail",
+  desc: "Check inbox of temp email",
+  category: "emails",
+  react: "📬",
+  filename: __filename
+}, async (conn, mek, m, { reply, q, fetchJson }) => {
+  try {
+    if (!q) return reply("❌ Provide an email ID to check messages!");
+
+    const apiKey = "MepwBcqIM0jYN0okD";
+    const apiUrl = `https://api.nexoracle.com/misc/temp-mail-inbox?apikey=${apiKey}&id=${q}`;
+    const response = await fetchJson(apiUrl);
+
+    if (response.status !== 200) return reply("❌ Failed to check emails!");
+
+    const emails = response.result[0];
+    if (!emails || emails.length === 0) return reply("📭 No new emails!");
+
+    let msg = `📬 *Inbox for Email ID:* ${q}\n\n`;
+    emails.forEach((email, i) => {
+      msg += `📩 *Email ${i + 1}*\n📝 Subject: ${email.subject}\n📅 Date: ${email.date}\n📨 Sender: ${email.from}\n📄 Message: ${email.text}\n\n`;
+    });
+
+    reply(msg);
+  } catch (err) {
+    reply("❌ Error checking emails!");
+  }
+});
+
+cmd({
+  pattern: "delmail",
+  desc: "Delete stored temporary email",
+  category: "emails",
+  react: "🗑️",
+  filename: __filename
+}, async (conn, mek, m, { reply }) => {
+  try {
+    if (!global.tempmail) return reply("❌ No temporary email found!");
+
+    delete global.tempmail;
+    reply("🗑️ Temporary email deleted!");
+  } catch (err) {
+    reply("❌ Error deleting temp mail!");
+  }
+});
