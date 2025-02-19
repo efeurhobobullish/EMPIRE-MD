@@ -12,7 +12,7 @@ cmd({
    async (conn, mek, m, { reply }) => {
  try {
  const apiKey = "MepwBcqIM0jYN0okD"; 
-const apiUrl = https://api.nexoracle.com/misc/temp-mail-gen?apikey=${apiKey};
+const apiUrl = `https://api.nexoracle.com/misc/temp-mail-gen?apikey=${apiKey}`;
  const response = await fetchJson(apiUrl);
 
 if (response.status !== 200) return reply("❌ Failed to generate temp mail!");
