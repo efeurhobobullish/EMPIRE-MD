@@ -64,4 +64,3 @@ delete global.tempmail;
 }
 
 });
-
