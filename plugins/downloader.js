@@ -69,40 +69,47 @@ cmd({
 cmd({
     pattern: "video",
     alias: ["mp4"],
-    desc: "Download songs",
+    desc: "Download videos",
     category: "downloader",
     react: "⏳",
     filename: __filename, 
   },
-  async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-   try {
-      if (!q) return reply("Send me url or title name");
+  async(conn, mek, m, { from, quoted, q, reply }) => {
+    try {
+      if (!q) return reply("Send me a URL or video title.");
 
+      // Search for the video
       const search = await yts(q);
+      if (!search.videos.length) return reply("❌ No results found.");
+      
       const data = search.videos[0];
       const url = data.url;
 
+      // Fetch video download link from API
       const response = await fetch(
-        `https://api.giftedtech.web.id/api/download/ytmp4?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`
+        `https://api.giftedtech.web.id/api/download/ytmp4?apikey=your_api_key&url=${encodeURIComponent(url)}`
       );
       const json = await response.json();
-      
+
       if (!json.success) return reply("❌ Failed to fetch video. Please try again.");
 
-      const { title, download_url } = json.result;
+      const { title, download_url, thumbnail } = json.result;
 
-      return reply(`_Downloading ${title}_`);
-
+      await reply(`_Downloading: ${title}_`);
+      
       await conn.sendMessage(
         from,
         {
           video: { url: download_url },
           mimetype: "video/mp4",
+          caption: `🎥 *Title:* ${title}\n📥 *Quality:* 720p`,
+          thumbnail: { url: thumbnail }
         },
         { quoted: mek }
       );
 
       await m.react("✅");
+      
     } catch (e) {
       console.error("Error in video command:", e);
       reply(`❌ Error: ${e.message}`);
