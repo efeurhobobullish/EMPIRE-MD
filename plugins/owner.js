@@ -60,6 +60,22 @@ async (conn, mek, m, { from, isOwner, q, reply }) => {
         await conn.sendMessage(from, { text: `❌ Failed to unblock the user: ${err.message}` }, { quoted: mek });
     }
 });
+
+cmd({
+    pattern: "readmore",
+    desc: "Adds *readmore* in given text.",
+    category: "owner",
+    filename: __filename
+}, 
+async (conn, mek, m, { q }) => {
+    if (!q) return await conn.sendMessage(m.chat, { text: "❌ Please provide text to apply readmore!" }, { quoted: mek });
+
+    const readMore = String.fromCharCode(8206).repeat(4001);
+    const result = q.replace(/\+/g, readMore);
+
+    await conn.sendMessage(m.chat, { text: result }, { quoted: mek });
+});
+
 //--------------------------------------------
 //  OWNER COMMANDS
 //--------------------------------------------
