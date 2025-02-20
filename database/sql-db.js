@@ -430,4 +430,5 @@ class sqlStore {
         }
 }
 
-module.exports = { sqlStore, db_manager };
+module.exports = sqlStore;
+module.exports.db_manager = db_manager;
