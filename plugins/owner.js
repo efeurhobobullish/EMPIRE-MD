@@ -205,6 +205,27 @@ async (conn, mek, m, { isOwner, quoted, reply }) => {
     }
 });
 //--------------------------------------------
+//  SETNAME COMMANDS
+//--------------------------------------------
+cmd({
+    pattern: "setname",
+    desc: "Set User name",
+    category: "owner",
+    filename: __filename
+},
+async (conn, mek, m, { isOwner, q, reply }) => {
+    if (!isOwner) return reply("❌ You are not the owner!");
+    if (!q) return reply("❌ Enter a name!");
+    
+    try {
+        await conn.updateProfileName(q);
+        reply(`✅ Username updated to: ${q}`);
+    } catch (error) {
+        console.error("Error updating username:", error);
+        reply(`❌ Error updating username: ${error.message}`);
+    }
+});
+//--------------------------------------------
 //  VV COMMANDS
 //--------------------------------------------
 cmd({
