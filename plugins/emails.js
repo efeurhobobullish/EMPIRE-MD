@@ -58,9 +58,8 @@ cmd({ pattern: "delmail", desc: "Delete stored temporary email", category: "emai
 
 delete global.tempmail;
   return  reply("🗑️ Temporary email deleted!");
-} catch (e) {
-    console.error(e);
-   return reply("❌ An error occurred!");
-}
-
+    } catch (e) {
+        console.log(e);
+        reply(`Error: ${e.message}`);
+    }
 });
