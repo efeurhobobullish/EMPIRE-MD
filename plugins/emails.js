@@ -26,12 +26,10 @@ if (response.status !== 200) return reply("❌ Failed to generate temp mail!");
 
    return reply(`📩 *Temporary Email Created*\n\n📧 Email: ${global.tempmail.email}\n🆔 Email ID: ${global.tempmail.email_id}\n⏳ Expires At: ${global.tempmail.expire_at}`);
 } catch (e) {
-    console.error(e);
-    reply("❌ An error occurred!");
-}
-
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
+    }
 });
-
 cmd({ pattern: "checkmail", desc: "Check inbox of temp email", category: "emails", filename: __filename }, async (conn, mek, m, { reply, q }) => { try { if (!q) return reply("❌ Provide an email ID to check messages!");
 
 const apiKey = "MepwBcqIM0jYN0okD";
@@ -53,6 +51,11 @@ emails.forEach((email, i) => {
 const msg = msgHeader + msgBody;
 
 await conn.sendMessage(from, msg, { quoted: mek });
+      } catch (e) {
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
+    }
+});
 
 cmd({
     pattern: "delmail",
