@@ -7,7 +7,7 @@ class AntideleteModule {
         this.ownerJid = null;
         this.enabled = false;
         this.sock = null;
-        this.processedMessages = new Set(); // Cache to prevent duplicate processing
+        this.processedMessages = new Map(); // Use Map for better tracking
     }
 
     isGroup(jid) {
@@ -83,7 +83,7 @@ class AntideleteModule {
                 return;
             }
             
-            this.processedMessages.add(messageId); // Mark as processed
+            this.processedMessages.set(messageId, Date.now()); // Track processed message
 
             try {
                 const deletedMessage = await store.loadMessage(chat, messageId);
@@ -172,19 +172,30 @@ class AntideleteModule {
             this.enabled = true;
             this.sock = sock;
 
+            // Prevent duplicate event listener
+            if (this.sock.ev.listenerCount("messages.update") === 0) {
+                this.sock.ev.on("messages.update", async (updates) => {
+                    for (const update of updates) {
+                        await this.handleMessageUpdate(update, sock.store);
+                    }
+                });
+            }
+
+            // Clear old messages from cache every 10 minutes
             setInterval(() => {
-                this.processedMessages.clear(); // Clear processed messages every 10 minutes
-            }, 10 * 60 * 1000);
+                const now = Date.now();
+                for (let [key, time] of this.processedMessages) {
+                    if (now - time > 600000) { // 10 min timeout
+                        this.processedMessages.delete(key);
+                    }
+                }
+            }, 5 * 60 * 1000);
 
             return this;
         } catch (error) {
             console.error('❌ Error setting up Antidelete module:', error);
             throw error;
         }
-    }
-
-    async execute(sock, update, options = {}) {
-        await this.handleMessageUpdate(update, options.store);
     }
 }
 
