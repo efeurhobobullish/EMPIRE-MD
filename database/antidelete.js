@@ -153,16 +153,13 @@ createPublicNotification(sender, deletedBy) {
 
 // Modify existing notification for private (owner) messages
 createNotificationText(chatName, sender, deletedBy, chat) {
-    return `
-╭──「 𝙳𝙴𝙻𝙴𝚃𝙴𝙳 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 」───◆  
-│ ∘ 𝚃𝙸𝙼𝙴: ${new Date().toLocaleString()}  
-│ ∘ 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 𝙵𝚁𝙾𝙼: @${sender.split('@')[0]}  
-│ ∘ 𝙲𝙷𝙰𝚃: ${chatName}  
-│ ∘ 𝙳𝙴𝙻𝙴𝚃𝙴𝙳 𝙱𝚈: @${deletedBy.split('@')[0]}  
-│ ∘ 𝙶𝚁𝙾𝚄𝙿: ${this.isGroup(chat) ? 'Yes' : 'No'}  
-╰───────────────────`;
+    return `*[DELETED MESSAGE INFORMATION]*\n\n` +
+           `*TIME:* ${new Date().toLocaleString()}\n` +
+           `*MESSAGE FROM:* @${sender.split('@')[0]}\n` +
+           `*CHAT:* ${chatName}\n` +
+           `*DELETED BY:* @${deletedBy.split('@')[0]}\n` +
+           `*IS GROUP:* ${this.isGroup(chat) ? 'Yes' : 'No'}`;
 }
-
     logError(message, error) {
         console.error(chalk.red(`❌ ${message}: ${error?.message || error}`));
     }
