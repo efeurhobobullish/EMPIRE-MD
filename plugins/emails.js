@@ -9,7 +9,7 @@ cmd({
     category: "emails",
    filename: __filename
  }, 
-   async (conn, mek, m, { reply }) => {
+   async (conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
  try {
  const apiKey = "MepwBcqIM0jYN0okD"; 
 const apiUrl = `https://api.nexoracle.com/misc/temp-mail-gen?apikey=${apiKey}`;
@@ -30,7 +30,7 @@ if (response.status !== 200) return reply("❌ Failed to generate temp mail!");
         reply(`❌ Error: ${e.message}`);
     }
 });
-cmd({ pattern: "checkmail", desc: "Check inbox of temp email", category: "emails", filename: __filename }, async (conn, mek, m, { reply, q }) => { try { if (!q) return reply("❌ Provide an email ID to check messages!");
+cmd({ pattern: "checkmail", desc: "Check inbox of temp email", category: "emails", filename: __filename }, async (conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => { try { if (!q) return reply("❌ Provide an email ID to check messages!");
 
 const apiKey = "MepwBcqIM0jYN0okD";
     const apiUrl = `https://api.nexoracle.com/misc/temp-mail-inbox?apikey=${apiKey}&id=${q}`;
@@ -63,7 +63,7 @@ cmd({
     category: "emails",
     filename: __filename
 }, 
-async (conn, mek, m, { reply }) => {
+async (conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
     try {
         if (!global.tempmail) return await conn.sendMessage(m.chat, { text: "❌ No temporary email found!" }, { quoted: mek });
 
