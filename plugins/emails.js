@@ -35,30 +35,26 @@ cmd({
     desc: "Check inbox of temp email",
     category: "emails",
     filename: __filename
- }, async (conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => { 
-try {
- if (!q) return reply("❌ Provide an email ID to check messages!");
+}, async (conn, mek, m, { from, q, reply }) => { 
+    try {
+        if (!q) return reply("❌ Provide an email ID to check messages!");
 
-const apiKey = "MepwBcqIM0jYN0okD";
-    const apiUrl = `https://api.nexoracle.com/misc/temp-mail-inbox?apikey=${apiKey}&id=${q}`;
-    const response = await fetchJson(apiUrl);
+        const apiKey = "MepwBcqIM0jYN0okD";
+        const apiUrl = `https://api.nexoracle.com/misc/temp-mail-inbox?apikey=${apiKey}&id=${q}`;
+        const response = await fetchJson(apiUrl);
 
-    if (response.status !== 200) return reply("❌ Failed to check emails!");
+        if (response.status !== 200) return reply("❌ Failed to check emails!");
 
-    const emails = response.result;
-    if (!emails || emails.length === 0) return reply("📭 No new emails!");
+        const emails = response.result?.[0] || [];
+        if (!emails.length) return reply("📭 No new emails!");
 
-    const msgHeader = `📬 *Inbox for Email ID:* ${q}\n\n`;
-let msgBody = '';
+        const msgHeader = `📬 *Inbox for Email ID:* ${q}\n\n`;
+        let msgBody = emails.map((email, i) => 
+            `📩 *Email ${i + 1}*\n📝 Subject: ${email.headerSubject}\n📅 Date: ${email.date || "Unknown"}\n📨 Sender: ${email.fromAddr}\n📄 Message: ${email.text?.slice(0, 500) || "No content"}\n🔗 [Download Email](${email.downloadUrl})\n\n`
+        ).join('');
 
-emails.forEach((email, i) => {
-    msgBody += `📩 *Email ${i + 1}*\n📝 Subject: ${email.subject}\n📅 Date: ${email.date}\n📨 Sender: ${email.from}\n📄 Message: ${email.text}\n\n`;
-});
-
-const msg = msgHeader + msgBody;
-
-await conn.sendMessage(from, msg, { quoted: mek });
-      } catch (e) {
+        await conn.sendMessage(from, msgHeader + msgBody, { quoted: mek });
+    } catch (e) {
         console.error(e);
         reply(`❌ Error: ${e.message}`);
     }
