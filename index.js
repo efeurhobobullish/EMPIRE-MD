@@ -30,7 +30,7 @@ const ownerNumber = [config.OWNER_NUMBER];
 const ffmpeg = require('fluent-ffmpeg');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
-const { initializeStore, getStore } = require("./database/sql-init")
+const { initializeStore, getStore } = require("./database/sql-init");
 const { setupAntidelete } = require('./database/antidelete');
 const { db_manager, sqlStore } = require('./database/sql-db');
 
