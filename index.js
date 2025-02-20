@@ -28,7 +28,8 @@ const prefix = config.PREFIX;
 const mode = config.MODE || "private";
 const ownerNumber = [config.OWNER_NUMBER];
 const ffmpeg = require('fluent-ffmpeg');
-
+const { initializeStore } = require("./database/sql-init")
+const { setupAntidelete } = require('./database/antidelete');
 
 //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
@@ -50,6 +51,7 @@ const port = process.env.PORT || 8000;
 //=============================================
 
 async function connectToWA() {
+await initializeStore();
   console.log("ℹ️ Connecting to WhatsApp!");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/');
   var { version } = await fetchLatestBaileysVersion();
@@ -92,6 +94,7 @@ conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, { text: up });
 conn.ev.on('creds.update', saveCreds)  
 
 conn.ev.on('messages.upsert', async(mek) => {
+await global.store.bind(conn.ev);
     mek = mek.messages[0]
     if (mek.key && mek.key.remoteJid === "status@broadcast") {
     try {
@@ -115,6 +118,30 @@ conn.ev.on('messages.upsert', async(mek) => {
         console.error("Error processing status actions:", error);
     }
 }
+    
+    conn.ev.on('messages.update', async (updates) => {
+
+            try {
+
+                const antideleteModule = await setupAntidelete(conn, global.store);
+
+                for (const update of updates) {
+
+                    if (update.update.message === null || update.update.messageStubType === 2) {
+
+                        await antideleteModule.execute(conn, update, { store: global.store });
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.error('Error in message update handling:', error);
+
+            }
+
+        });
 
 conn.ev.on('call', async (call) => {
     const callData = call[0]; // Get the first call object
