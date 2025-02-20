@@ -67,7 +67,7 @@ class AntideleteModule {
     }
 
     async handleMessageUpdate(update, store) {
-        if (!config?.ANTI_DELETE || !this.enabled || !this.ownerJid) return;
+        if (!config?.ANTIDELETE || !this.enabled || !this.ownerJid) return;
 
         const chat = update.key.remoteJid;
         const messageId = update.key.id;
@@ -168,7 +168,7 @@ createNotificationText(chatName, sender, deletedBy, chat) {
     }
 
     async setup(sock) {
-        if (!config.ANTI_DELETE) {
+        if (!config.ANTIDELETE) {
         //    console.log(chalk.yellow('Antidelete is disabled in config settings'));
             return this;
         }
