@@ -3,6 +3,47 @@ const path = require("path");
 const config = require("../config");
 const { cmd, commands } = require("../command");
 const prefix = config.PREFIX;
+const { initializeStore } = require("../database/sql-init")
+const { setupAntidelete } = require('../database/antidelete');
+
+
+cmd({
+    pattern: "antidelete",
+    desc: "enable or disable antidelete.",
+    category: "settings",
+    react: "⏳",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, body, args, q, pushname, reply }) => {
+    // Check the argument for enabling or disabling the anticall feature
+    if (args[0] === "on") {
+        config.ANTIDELETE = "true";
+        return reply("antidelete feature is now enabled.");
+    } else if (args[0] === "off") {
+        config.ANTIDELETE = "false";
+        return reply("antidelete feature is now disabled.");
+    } else {
+        return reply(`_example:  .antidelete on_`);
+    }
+});
+
+cmd({
+    pattern: "antideletepm",
+    desc: "enable or disable antidelete to your chat.",
+    category: "settings",
+    react: "⏳",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, body, args, q, pushname, reply }) => {
+    // Check the argument for enabling or disabling the anticall feature
+    if (args[0] === "on") {
+        config.ANTIDELETE_PM = "true";
+        return reply("antideletepm  is now enabled.\n deleted messages sent to dm.");
+    } else if (args[0] === "off") {
+        config.ANTIDELETE_PM = "false";
+        return reply("antideletepm feature is now disabled.");
+    } else {
+        return reply(`_example:  .antideletepm on_`);
+    }
+});
 
 //--------------------------------------------
 //   ANTICALL COMMANDS
