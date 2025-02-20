@@ -60,7 +60,7 @@ delete global.tempmail;
   return  reply("🗑️ Temporary email deleted!");
 } catch (e) {
     console.error(e);
-    reply("❌ An error occurred!");
+   return reply("❌ An error occurred!");
 }
 
 });
