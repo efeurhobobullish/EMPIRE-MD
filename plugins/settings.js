@@ -8,7 +8,6 @@ cmd({
     pattern: "antidelete",
     desc: "enable or disable antidelete.",
     category: "settings",
-    react: "⏳",
     filename: __filename
 }, async (conn, mek, m, { from, quoted, body, args, q, pushname, reply }) => {
     // Check the argument for enabling or disabling the anticall feature
