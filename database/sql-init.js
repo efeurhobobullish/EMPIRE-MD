@@ -1,5 +1,5 @@
 // this file initialize the store and make some of the defined funcs here global
-const sqlStore = require('./database/sql-db');
+const sqlStore = require('./sql-db');
 
 let storeInstance = null;
 let isInitializing = false;
