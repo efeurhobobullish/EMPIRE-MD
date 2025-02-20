@@ -54,12 +54,21 @@ const msg = msgHeader + msgBody;
 
 await conn.sendMessage(from, msg, { quoted: mek });
 
-cmd({ pattern: "delmail", desc: "Delete stored temporary email", category: "emails", filename: __filename }, async (conn, mek, m, { reply }) => { try { if (!global.tempmail) return reply("❌ No temporary email found!");
+cmd({
+    pattern: "delmail",
+    desc: "Delete stored temporary email",
+    category: "emails",
+    filename: __filename
+}, 
+async (conn, mek, m, { reply }) => {
+    try {
+        if (!global.tempmail) return await conn.sendMessage(m.chat, { text: "❌ No temporary email found!" }, { quoted: mek });
 
-delete global.tempmail;
-  return  reply("🗑️ Temporary email deleted!");
+        delete global.tempmail;
+        await conn.sendMessage(m.chat, { text: "🗑️ Temporary email deleted!" }, { quoted: mek });
+
     } catch (e) {
-        console.log(e);
-        reply(`Error: ${e.message}`);
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
     }
 });
