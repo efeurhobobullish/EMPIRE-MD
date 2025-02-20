@@ -26,7 +26,6 @@ cmd({
     pattern: "antideletepm",
     desc: "enable or disable antidelete to your chat.",
     category: "settings",
-    react: "⏳",
     filename: __filename
 }, async (conn, mek, m, { from, quoted, body, args, q, pushname, reply }) => {
     // Check the argument for enabling or disabling the anticall feature
