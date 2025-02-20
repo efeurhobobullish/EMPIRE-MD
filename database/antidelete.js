@@ -7,6 +7,7 @@ class AntideleteModule {
         this.ownerJid = null;
         this.enabled = false;
         this.sock = null;
+        this.processedMessages = new Set(); // Cache to prevent duplicate processing
     }
 
     isGroup(jid) {
@@ -77,11 +78,18 @@ class AntideleteModule {
             (update.update.message?.protocolMessage?.type === 0);
 
         if (isDeleted) {
+            if (this.processedMessages.has(messageId)) {
+                console.log(chalk.yellow('⚠️ Message already processed, skipping.'));
+                return;
+            }
+            
+            this.processedMessages.add(messageId); // Mark as processed
+
             try {
                 const deletedMessage = await store.loadMessage(chat, messageId);
                 
                 if (!deletedMessage) {
-                    console.log(chalk.yellow('⚠️ Deleted message not found in store'));
+                    console.log(chalk.yellow('⚠️ Deleted message not found in store.'));
                     return;
                 }
 
@@ -98,7 +106,6 @@ class AntideleteModule {
         const deletedBy = deletedMessage.key.fromMe ? this.sock.user.id : deletedMessage.key.participant || chat;
         const sender = deletedMessage.key.participant || deletedMessage.key.remoteJid;
     
-        // Determine where to send the notification
         const sendToJid = config.ANTIDELETE_PM ? chat : this.ownerJid;
 
         try {
@@ -117,7 +124,6 @@ class AntideleteModule {
                     self.indexOf(jid) === index
                 );
 
-                // Customize message based on destination
                 const notificationText = config.ANTIDELETE_PM
                     ? this.createPublicNotification(sender, deletedBy)
                     : this.createNotificationText(chatName, sender, deletedBy, chat);
@@ -136,7 +142,6 @@ class AntideleteModule {
         }
     }
 
-    // Add new notification format for public messages
     createPublicNotification(sender, deletedBy) {
         return `*⚠️ DELETED MESSAGE DETECTED*\n\n` +
                `📩 *Author:* @${sender.split('@')[0]}\n` +
@@ -144,7 +149,6 @@ class AntideleteModule {
                `⏳ *Time:* ${new Date().toLocaleTimeString()}`;
     }
 
-    // Modify existing notification for private (owner) messages
     createNotificationText(chatName, sender, deletedBy, chat) {
         return `*🔍 DELETED MESSAGE INFORMATION*\n\n` +
                `📅 *TIME:* ${new Date().toLocaleString()}\n` +
@@ -167,6 +171,11 @@ class AntideleteModule {
             this.setOwnerJid();
             this.enabled = true;
             this.sock = sock;
+
+            setInterval(() => {
+                this.processedMessages.clear(); // Clear processed messages every 10 minutes
+            }, 10 * 60 * 1000);
+
             return this;
         } catch (error) {
             console.error('❌ Error setting up Antidelete module:', error);
