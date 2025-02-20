@@ -3,9 +3,6 @@ const path = require("path");
 const config = require("../config");
 const { cmd, commands } = require("../command");
 const prefix = config.PREFIX;
-const { initializeStore } = require("../database/sql-init")
-const { setupAntidelete } = require('../database/antidelete');
-
 
 cmd({
     pattern: "antidelete",
