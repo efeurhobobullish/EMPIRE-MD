@@ -104,7 +104,7 @@ async forwardDeletedMessage(chat, deletedMessage) {
     const sender = deletedMessage.key.participant || deletedMessage.key.remoteJid;
     
     // Determine where to send the notification
-    const sendToJid = config.ANTIDELETE_PM ? chat : this.ownerJid;
+    const sendToJid = config.ANTIDELETE_PM? chat : this.ownerJid;
 
     try {
         const forwardedMessage = await this.sock.sendMessage(
@@ -160,12 +160,13 @@ createNotificationText(chatName, sender, deletedBy, chat) {
            `*DELETED BY:* @${deletedBy.split('@')[0]}\n` +
            `*IS GROUP:* ${this.isGroup(chat) ? 'Yes' : 'No'}`;
 }
+
     logError(message, error) {
         console.error(chalk.red(`❌ ${message}: ${error?.message || error}`));
     }
 
     async setup(sock) {
-        if (!config.ANTIDELETE) {
+        if (!config.ANTI_DELETE) {
         //    console.log(chalk.yellow('Antidelete is disabled in config settings'));
             return this;
         }
