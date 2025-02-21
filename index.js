@@ -92,7 +92,6 @@ conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, { text: up });
 conn.ev.on('creds.update', saveCreds)  
 
 conn.ev.on('messages.upsert', async(mek) => {
-await global.store.bind(conn.ev);
     mek = mek.messages[0]
     if (mek.key && mek.key.remoteJid === "status@broadcast") {
     try {
@@ -116,30 +115,6 @@ await global.store.bind(conn.ev);
         console.error("Error processing status actions:", error);
     }
 }
-    
-    conn.ev.on('messages.update', async (updates) => {
-
-            try {
-
-                const antideleteModule = await setupAntidelete(conn, global.store);
-
-                for (const update of updates) {
-
-                    if (update.update.message === null || update.update.messageStubType === 2) {
-
-                        await antideleteModule.execute(conn, update, { store: global.store });
-
-                    }
-
-                }
-
-            } catch (error) {
-
-                console.error('Error in message update handling:', error);
-
-            }
-
-        });
 
 conn.ev.on('call', async (call) => {
     const callData = call[0]; // Get the first call object
@@ -151,7 +126,6 @@ conn.ev.on('call', async (call) => {
         await conn.rejectCall(callData.id, callData.from);
     }
 });
-
 
 const m = sms(conn, mek)
 const type = getContentType(mek.message)
