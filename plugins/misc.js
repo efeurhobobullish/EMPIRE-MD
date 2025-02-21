@@ -7,7 +7,7 @@
 //---------------------------------------------
 const config = require('../config');
 const { cmd, commands } = require('../command');
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveconfig } = require('../Lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveConfig } = require('../Lib/functions');
 const fs = require('fs');
 const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
@@ -52,44 +52,43 @@ Reply With:
     const messageSent = await conn.sendMessage(from, infoMess, { quoted: mek });
     const messageId = messageSent.key.id;
 
-    conn.ev.once("messages.upsert", async (event) => {
+    conn.ev.on("messages.upsert", async (event) => {
         const messageData = event.messages[0];
         if (!messageData.message) return;
         const messageContent = messageData.message.conversation || messageData.message.extendedTextMessage?.text;
-        const isReplyToPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
+        const isReplyToDownloadPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
 
-        if (isReplyToPrompt) {
+        if (isReplyToDownloadPrompt) {
+            await m.react("⬇🔄");
             let newMode, successMessage;
-            await conn.sendMessage(from, { react: { text: "⬇🔄", key: mek.key } });
 
             switch (messageContent) {
-                case "1":
+                case "1": 
                     newMode = "public";
-                    successMessage = "✅ *Bot Mode has been set to Public (All Chats).*";
+                    successMessage = "✅ *Bot Mode Successfully Set to Public (All Chats).*";
                     break;
-                case "2":
+                case "2": 
                     newMode = "private";
-                    successMessage = "✅ *Bot Mode has been set to Private.*";
+                    successMessage = "✅ *Bot Mode Successfully Set to Private (Owner Only).*";
                     break;
-                case "3":
+                case "3": 
                     newMode = "inbox";
-                    successMessage = "✅ *Bot has been set to work in Inbox (PM) only.*";
+                    successMessage = "✅ *Bot Mode Successfully Set to Inbox (PM Only).*";
                     break;
-                case "4":
+                case "4": 
                     newMode = "groups";
-                    successMessage = "✅ *Bot has been set to work in Groups only.*";
+                    successMessage = "✅ *Bot Mode Successfully Set to Groups Only.*";
                     break;
                 default:
-                    return conn.sendMessage(from, { text: "❌ *Invalid option selected. Please reply with 1, 2, 3, or 4.*" });
+                    return reply("⚠️ Invalid option. Reply with a valid number (1-4).");
             }
 
-            config.MODE = newMode;
-            saveconfig();
-            await conn.sendMessage(from, { text: successMessage }); // ✅ Now the success message is sent properly!
+            saveConfig("MODE", newMode);
+            reply(successMessage);
         }
     });
 
-    await conn.sendMessage(from, { react: { text: "✅", key: mek.key } });
+    await m.react("✅");
 });
 //--------------------------------------------
 //            INFO COMMANDS
