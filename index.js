@@ -49,7 +49,6 @@ const port = process.env.PORT || 8000;
 //=============================================
 
 async function connectToWA() {
-await initializeStore();
   console.log("ℹ️ Connecting to WhatsApp!");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/');
   var { version } = await fetchLatestBaileysVersion();
