@@ -9,7 +9,7 @@ const config = require('../config');
 const { cmd, commands } = require('../command');
 const { monospace } = require('../Lib/monospace');
 const os = require('os'); // Import the os module
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('../Lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveconfig } = require('../Lib/functions');
 
 // Use global variables for dynamic content
 const botname = global.botname || "EMPIRE-MD";
@@ -77,7 +77,10 @@ const formatCategory = (category, cmds) => {
         }
 
         // Send menu
-        await conn.sendMessage(from, { text: menu.trim() }, { quoted: mek });
+        await conn.sendMessage(from, {
+            image: { url: 'https://files.catbox.moe/gvg6ww.jpg' }, 
+            caption: menu.trim(),
+        }, { quoted: mek });
     } catch (e) {
         console.log(e);
         reply(`${e}`);
