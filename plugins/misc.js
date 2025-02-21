@@ -85,7 +85,7 @@ Reply With:
             }
 
             saveConfig("MODE", newMode);
-            reply(successMessage);
+           return reply(successMessage);
         }
     });
 
