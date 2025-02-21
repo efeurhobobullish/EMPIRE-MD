@@ -9,7 +9,6 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = './config.env';
-const config = require('./config');
 
 // Fetch a buffer from a URL
 const getBuffer = async (url, options) => {
