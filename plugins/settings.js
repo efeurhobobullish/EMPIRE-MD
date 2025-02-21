@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("../config");
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveconfig } = require('../Lib/functions');
 const { cmd, commands } = require("../command");
 const prefix = config.PREFIX;
 
