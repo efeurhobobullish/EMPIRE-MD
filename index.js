@@ -28,8 +28,6 @@ const prefix = config.PREFIX;
 const mode = config.MODE || "private";
 const ownerNumber = [config.OWNER_NUMBER];
 const ffmpeg = require('fluent-ffmpeg');
-const { initializeStore } = require("./database/sql-init")
-const { setupAntidelete } = require('./database/antidelete');
 
 //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
