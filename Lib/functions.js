@@ -107,7 +107,7 @@ const fetchJson = async (url, options) => {
     }
 };
 // Save config settings
-const saveconfig = (key, value) => {
+const saveConfig = (key, value) => {
     let configData = fs.existsSync(path) ? fs.readFileSync(path, 'utf8').split('\n') : [];
     let found = false;
 
