@@ -13,6 +13,87 @@ const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
 const { exec } = require('child_process'); 
 
+
+cmd({
+    pattern: "mode",
+    desc: "Set Bot Mode",
+    category: "misc",
+    react: "🔄",
+    filename: __filename
+}, async (conn, mek, m, { from, q, body, reply, isOwner }) => {
+      if (!isOwner) return reply("*Owner Only Command*");
+
+const image = "https://files.catbox.moe/gvg6ww.jpg";
+
+    const infoMess = {
+            image: { url: image },
+            caption: `> *${global.botname} 𝐌𝐎𝐃𝐄 𝐒𝐄𝐓𝐓𝐈𝐍𝐆𝐒*  
+
+Reply With:
+
+*1.* To Enable Public Mode
+*2.* To Enable Private Mode
+*3.* To Enable Inbox Mode
+*4.* To Enable Group Mode
+
+╭────────────────◆  
+│ ${global.caption}
+╰─────────────────◆`,
+            contextInfo: {
+                mentionedJid: [m.sender],
+                forwardingScore: 5,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                  newsletterJid: '120363337275149306@newsletter',
+                    newsletterName: global.botname,
+                    serverMessageId: 143
+                }
+            }
+        };
+
+        const messageSent = await conn.sendMessage(from, infoMess, { quoted: mek });
+        const messageId = messageSent.key.id;
+        conn.ev.on("messages.upsert", async (event) => {
+            const messageData = event.messages[0];
+            if (!messageData.message) return;
+            const messageContent = messageData.message.conversation || messageData.message.extendedTextMessage?.text;
+            const isReplyToDownloadPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
+
+            if (isReplyToDownloadPrompt) {
+                await m.react("⬇🔄");
+                switch (messageContent) {
+                    case "1": 
+                        config.MODE = "public";
+                        saveConfig();
+                        return reply("Bot Mode Has Been Set to Public (All Chats).");
+                        break;
+
+                    case "2": 
+                        config.MODE = "private";
+                        saveConfig();
+                        return reply("Bot Mode Has Been Set to Private.");
+                        break;
+
+                    case "3": 
+                        config.MODE = "inbox";
+                        saveConfig();
+                        return reply("Bot Has Been Set to Work in Inbox(pm) Only.");
+                        break;
+
+                    case "4": 
+                        config.MODE = "groups";
+                        saveConfig();
+                        return reply("Bot Has Been Set to work in Groups Only.");
+                        break;
+
+                    default:
+                  await conn.sendMessage(from, { text: "Invalid option selected. Please reply with a valid number (1 or 2)." });
+                }
+            }
+        }); 
+      await m.react("✅");
+});
+
 //--------------------------------------------
 //            INFO COMMANDS
 //--------------------------------------------
