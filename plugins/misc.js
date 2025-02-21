@@ -66,30 +66,27 @@ Reply With:
             switch (messageContent) {
                 case "1": 
                     newMode = "public";
-                    successMessage = "✅ *Bot Mode Successfully Set to Public (All Chats).*";
-                    break;
+                    return reply("Bot Mode Has Been Set to Public (All Chats).");
+                        break;
                 case "2": 
                     newMode = "private";
-                    successMessage = "✅ *Bot Mode Successfully Set to Private (Owner Only).*";
+                    return reply("Bot Mode Has Been Set to Private.");
                     break;
                 case "3": 
                     newMode = "inbox";
-                    successMessage = "✅ *Bot Mode Successfully Set to Inbox (PM Only).*";
+                    return reply("Bot Has Been Set to Work in Inbox(pm) Only.");
                     break;
                 case "4": 
                     newMode = "groups";
-                    successMessage = "✅ *Bot Mode Successfully Set to Groups Only.*";
+                    return reply("Bot Has Been Set to work in Groups Only.");
                     break;
                 default:
-                    return reply("⚠️ Invalid option. Reply with a valid number (1-4).");
+saveconfig("MODE", newMode);
+                    await conn.sendMessage(from, { text: "Invalid option selected. Please reply with a valid number (1,2,3 or 4)." });
+                }
             }
-
-            saveConfig("MODE", newMode);
-           return reply(successMessage);
-        }
-    });
-
-    await m.react("✅");
+        }); 
+      await m.react("✅");
 });
 
 //--------------------------------------------
