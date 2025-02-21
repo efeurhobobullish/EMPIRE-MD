@@ -13,6 +13,7 @@ const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
 const { exec } = require('child_process'); 
 
+
 cmd({
     pattern: "mode",
     desc: "Set Bot Mode",
@@ -59,7 +60,7 @@ Reply With:
 
         if (isReplyToPrompt) {
             let newMode, successMessage;
-            await m.react("⬇🔄");
+            await conn.sendMessage(from, { react: { text: "⬇🔄", key: mek.key } });
 
             switch (messageContent) {
                 case "1":
@@ -79,16 +80,16 @@ Reply With:
                     successMessage = "✅ *Bot has been set to work in Groups only.*";
                     break;
                 default:
-                    return reply("❌ *Invalid option selected. Please reply with 1, 2, 3, or 4.*");
+                    return conn.sendMessage(from, { text: "❌ *Invalid option selected. Please reply with 1, 2, 3, or 4.*" });
             }
 
             config.MODE = newMode;
-            saveConfig();
-            return reply(successMessage);
+            saveconfig();
+            await conn.sendMessage(from, { text: successMessage }); // ✅ Now the success message is sent properly!
         }
     });
 
-    await m.react("✅");
+    await conn.sendMessage(from, { react: { text: "✅", key: mek.key } });
 });
 //--------------------------------------------
 //            INFO COMMANDS
