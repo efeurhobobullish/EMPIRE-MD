@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("../config");
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveconfig } = require('../Lib/functions');
 const { cmd, commands } = require("../command");
 const prefix = config.PREFIX;
 
@@ -48,17 +49,64 @@ cmd({
     desc: "Enable or disable the anticall feature",
     category: "settings",
     filename: __filename
-}, async (conn, mek, m, { from, quoted, body, args, q, pushname, reply }) => {
-    // Check the argument for enabling or disabling the anticall feature
-    if (args[0] === "on") {
-        config.ANTICALL = "true";
-        await reply("Anticall feature is now enabled.");
-    } else if (args[0] === "off") {
-        config.ANTICALL = "false";
-        await reply("Anticall feature is now disabled.");
-    } else {
-        await reply(`Example: .anticall on or off`);
-    }
+}, async (conn, mek, m, { from, reply, isOwner }) => {
+    if (!isOwner) return reply("*Owner Only Command*");
+
+    const image = "https://files.catbox.moe/gvg6ww.jpg";
+
+    const infoMess = {
+        image: { url: image },
+        caption: `> *${global.botname} 𝐀𝐍𝐓𝐈𝐂𝐀𝐋𝐋 𝐒𝐄𝐓𝐓𝐈𝐍𝐆𝐒*  
+
+Reply With:
+
+*1.* To Enable Anticall
+*2.* To Disable Anticall
+
+╭────────────────◆  
+│ ${global.caption}
+╰─────────────────◆`,
+        contextInfo: {
+            mentionedJid: [m.sender],
+            forwardingScore: 5,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363337275149306@newsletter',
+                newsletterName: global.botname,
+                serverMessageId: 143
+            }
+        }
+    };
+
+    const messageSent = await conn.sendMessage(from, infoMess, { quoted: mek });
+    const messageId = messageSent.key.id;
+
+    conn.ev.on("messages.upsert", async (event) => {
+        const messageData = event.messages[0];
+        if (!messageData.message) return;
+        const messageContent = messageData.message.conversation || messageData.message.extendedTextMessage?.text;
+        const isReplyToPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
+
+        if (isReplyToPrompt) {
+            await m.react("⬇🔄");
+            switch (messageContent) {
+                case "1": 
+                    config.ANTICALL = "true";
+                    saveConfig();
+                    return reply("✅ *Anticall feature is now enabled.*");
+
+                case "2": 
+                    config.ANTICALL = "false";
+                    saveConfig();
+                    return reply("✅ *Anticall feature is now disabled.*");
+
+                default:
+                    await conn.sendMessage(from, { text: "❌ *Invalid option selected. Please reply with 1 or 2.*" });
+            }
+        }
+    });
+
+    await m.react("✅");
 });
 //--------------------------------------------
 // AUTO_TYPING COMMANDS
