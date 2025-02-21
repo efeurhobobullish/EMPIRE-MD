@@ -18,7 +18,6 @@ cmd({
     pattern: "mode",
     desc: "Set Bot Mode",
     category: "misc",
-    react: "🔄",
     filename: __filename
 }, async (conn, mek, m, { from, reply, isOwner }) => {
     if (!isOwner) return reply("❌ You are not the owner!");
