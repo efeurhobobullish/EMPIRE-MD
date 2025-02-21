@@ -38,3 +38,19 @@ cmd({
     return reply("❌ An error occurred while obfuscating the code. Please try again.");
   }
 });
+
+cmd({
+    pattern: "exec",
+    alias: ["$"],
+    desc: "Execute Terminal Commands.",
+    category: "coding",
+    filename: __filename
+}, async (conn, mek, m, { reply, isOwner, isMe, botNumber2, botNumber, q }) => {
+    if (!isOwner && !isMe && !botNumber2 && !botNumber) return reply("❌ You are not the owner!");
+    if (!q) return reply("Provide a terminal command to execute.");
+    exec(q, (err, stdout, stderr) => {
+        if (err) return reply(`❌ Error: ${err.message}`);
+        if (stderr) return reply(`⚠️ Stderr: ${stderr}`);
+        if (stdout) reply(stdout.trim());
+    });
+});
