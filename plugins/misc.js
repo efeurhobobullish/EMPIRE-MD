@@ -6,12 +6,6 @@
 //  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
 //---------------------------------------------
 const config = require('../config');
-sc.js
-+2
--7
-Original file line number	Diff line number	Diff line change
-@@ -8,95 +8,90 @@
-const config = require('../config');
 const { cmd, commands } = require('../command');
 const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveConfig} = require('../Lib/functions');
 const fs = require('fs');
