@@ -93,11 +93,6 @@ Reply With:
         }); 
       await m.react("✅");
 });
-    } catch (e) {
-        console.error(e);
-        reply(`${e}`);
-    }
-});
 //--------------------------------------------
 //            INFO COMMANDS
 //--------------------------------------------
@@ -111,12 +106,12 @@ cmd({
     try {
       if (!isOwner) return reply("❏ This command can only be used by the bot owner.");
 
-      const owner = "𝐄𝐦𝐩𝐢𝐫𝐞 𝐓𝐞𝐜𝐡 [ 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫 ]";
+      const owner = "𝙴𝚖𝚙𝚒𝚛𝚎 𝚃𝚎𝚌𝚑";
       const repoLink = "https://github.com/efeurhobobullish/EMPIRE-MD";
 
       const uptime = runtime(process.uptime());
 
-      const footer = "*𝐄𝐌𝐏𝐈𝐑𝐄-𝐌𝐃*";
+      const footer = "𝙴𝙼𝙿𝙸𝚁𝙴-𝙼𝙳";
 
       const finalMessage = `
 ╭────「  𝙱𝙾𝚃 𝙸𝙽𝙵𝙾 」────◆  
