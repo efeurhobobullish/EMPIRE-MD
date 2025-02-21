@@ -32,7 +32,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => 
         }
 
         // Screenshot API endpoint with API key
-        const screenshotApi = `https://api.giftedtech.web.id/api/tools/sstab?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
+        const screenshotApi = `https://api.nexoracle.com/misc/ss-tab?apikey=MepwBcqIM0jYN0okD&url=${encodeURIComponent(url)}`;
 
         // Fetch the screenshot (expecting JSON response)
         const response = await axios.get(screenshotApi);
