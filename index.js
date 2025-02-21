@@ -15,7 +15,7 @@ const {
   Browsers
 } = require('@whiskeysockets/baileys');
 
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveconfig } = require('./Lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, saveConfig } = require('./Lib/functions');
 const fs = require('fs');
 const P = require('pino');
 const config = require('./config');
