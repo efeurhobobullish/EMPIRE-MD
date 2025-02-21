@@ -13,7 +13,6 @@ const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
 const { exec } = require('child_process'); 
 
-
 cmd({
     pattern: "mode",
     desc: "Set Bot Mode",
@@ -52,42 +51,45 @@ Reply With:
     const messageSent = await conn.sendMessage(from, infoMess, { quoted: mek });
     const messageId = messageSent.key.id;
 
-    conn.ev.on("messages.upsert", async (event) => {
+    conn.ev.once("messages.upsert", async (event) => {
         const messageData = event.messages[0];
         if (!messageData.message) return;
         const messageContent = messageData.message.conversation || messageData.message.extendedTextMessage?.text;
-        const isReplyToDownloadPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
+        const isReplyToPrompt = messageData.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
 
-        if (isReplyToDownloadPrompt) {
-            await m.react("⬇🔄");
+        if (isReplyToPrompt) {
             let newMode, successMessage;
+            await m.react("⬇🔄");
 
             switch (messageContent) {
-                case "1": 
+                case "1":
                     newMode = "public";
-                    return reply("Bot Mode Has Been Set to Public (All Chats).");
-                        break;
-                case "2": 
+                    successMessage = "✅ *Bot Mode has been set to Public (All Chats).*";
+                    break;
+                case "2":
                     newMode = "private";
-                    return reply("Bot Mode Has Been Set to Private.");
+                    successMessage = "✅ *Bot Mode has been set to Private.*";
                     break;
-                case "3": 
+                case "3":
                     newMode = "inbox";
-                    return reply("Bot Has Been Set to Work in Inbox(pm) Only.");
+                    successMessage = "✅ *Bot has been set to work in Inbox (PM) only.*";
                     break;
-                case "4": 
+                case "4":
                     newMode = "groups";
-                    return reply("Bot Has Been Set to work in Groups Only.");
+                    successMessage = "✅ *Bot has been set to work in Groups only.*";
                     break;
                 default:
-saveconfig("MODE", newMode);
-                    await conn.sendMessage(from, { text: "Invalid option selected. Please reply with a valid number (1,2,3 or 4)." });
-                }
+                    return reply("❌ *Invalid option selected. Please reply with 1, 2, 3, or 4.*");
             }
-        }); 
-      await m.react("✅");
-});
 
+            config.MODE = newMode;
+            saveconfig();
+            return reply(successMessage);
+        }
+    });
+
+    await m.react("✅");
+});
 //--------------------------------------------
 //            INFO COMMANDS
 //--------------------------------------------
