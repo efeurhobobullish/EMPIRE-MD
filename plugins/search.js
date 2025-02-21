@@ -23,7 +23,7 @@ cmd({
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => {
-    try {
+     try {
         if (!q) return reply("Please send the website URL to screenshot.");
 
         const url = q.trim();
@@ -32,37 +32,34 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => 
         }
 
         // Screenshot API endpoint with API key
-        const screenshotApi = `https://api.nexoracle.com/misc/ss-tab?apikey=MepwBcqIM0jYN0okD&url=${encodeURIComponent(url)}`;
+        const screenshotApi = `https://api.giftedtech.web.id/api/tools/sspc?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
 
-        // Fetch the screenshot (expecting JSON response)
-        const response = await axios.get(screenshotApi);
+        // Fetch the screenshot
+        const webimage = await axios.get(screenshotApi, { responseType: 'arraybuffer' });
 
-        // Check if the response contains a URL for the screenshot
-        if (response.data?.url) {
-            // Send the screenshot image from the URL (as the API likely returns the image URL)
-            await conn.sendMessage(from, {
-                image: { url: response.data.url },
-            }, { quoted: mek });
-        } else {
-            reply("No screenshot found for the provided URL.");
-        }
+        // Send the screenshot as an image without a caption
+        await conn.sendMessage(from, {
+            image: Buffer.from(webimage.data),
+            mimetype: "image/png"
+        }, { quoted: mek });
 
     } catch (e) {
         console.error(e.response?.data || e.message); // Log detailed error
         reply(`An error occurred: ${e.response?.data?.error || e.message}`);
     }
 });
+
 //--------------------------------------------
 // SS WEB COMMANDS
 //--------------------------------------------
 cmd({
-    pattern: "ssweb",
+    pattern: "sspc",
     desc: "Screenshot a website",
     category: "search", // Category updated to 'search'
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => {
-    try {
+     try {
         if (!q) return reply("Please send the website URL to screenshot.");
 
         const url = q.trim();
@@ -71,26 +68,23 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, reply }) => 
         }
 
         // Screenshot API endpoint with API key
-        const screenshotApi = `https://api.giftedtech.web.id/api/tools/ssweb?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
+        const screenshotApi = `https://api.giftedtech.web.id/api/tools/sspc?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`;
 
-        // Fetch the screenshot (expecting JSON response)
-        const response = await axios.get(screenshotApi);
+        // Fetch the screenshot
+        const webimage = await axios.get(screenshotApi, { responseType: 'arraybuffer' });
 
-        // Check if the response contains a URL for the screenshot
-        if (response.data?.url) {
-            // Send the screenshot image from the URL (as the API likely returns the image URL)
-            await conn.sendMessage(from, {
-                image: { url: response.data.url },
-            }, { quoted: mek });
-        } else {
-            reply("No screenshot found for the provided URL.");
-        }
+        // Send the screenshot as an image without a caption
+        await conn.sendMessage(from, {
+            image: Buffer.from(webimage.data),
+            mimetype: "image/png"
+        }, { quoted: mek });
 
     } catch (e) {
         console.error(e.response?.data || e.message); // Log detailed error
         reply(`An error occurred: ${e.response?.data?.error || e.message}`);
     }
 });
+
 //--------------------------------------------
 // TRANSLATE COMMANDS
 //--------------------------------------------
