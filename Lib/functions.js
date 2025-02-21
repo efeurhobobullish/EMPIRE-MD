@@ -6,7 +6,9 @@
 //  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
 //---------------------------------------------------------------------------
 
+const fs = require('fs');
 const axios = require('axios');
+const path = './config.env';
 
 // Fetch a buffer from a URL
 const getBuffer = async (url, options) => {
@@ -81,6 +83,7 @@ const runtime = (seconds) => {
     if (m > 0) return `${m}m ${s}s`;
     return `${s}s`;
 };
+
 // Delay execution for a specified time
 const sleep = async (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -105,6 +108,27 @@ const fetchJson = async (url, options) => {
     }
 };
 
+// Save config settings
+const saveconfig = (key, value) => {
+    let configData = fs.existsSync(path) ? fs.readFileSync(path, 'utf8').split('\n') : [];
+    let found = false;
+
+    configData = configData.map(line => {
+        if (line.startsWith(`${key}=`)) {
+            found = true;
+            return `${key}=${value}`;
+        }
+        return line;
+    });
+
+    if (!found) configData.push(`${key}=${value}`);
+
+    fs.writeFileSync(path, configData.join('\n'), 'utf8');
+
+    // Reload updated environment variables
+    require('dotenv').config({ path });
+};
+
 module.exports = { 
     getBuffer, 
     getGroupAdmins, 
@@ -114,5 +138,6 @@ module.exports = {
     Json, 
     runtime, 
     sleep, 
-    fetchJson 
+    fetchJson, 
+    saveconfig 
 };
