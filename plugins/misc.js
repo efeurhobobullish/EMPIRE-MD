@@ -13,8 +13,6 @@ const { monospace } = require('../Lib/monospace');
 const axios = require('axios');
 const { exec } = require('child_process'); 
 
-const { saveConfig } = require("/lib/functions.js");
-
 cmd({
     pattern: "mode",
     desc: "Set Bot Mode",
