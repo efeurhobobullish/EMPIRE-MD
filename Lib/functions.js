@@ -8,6 +8,38 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = './config.env';
+const FormData = require("form-data");
+
+async function empiretourl(path) {
+  if (!fs.existsSync(path)) {
+    throw new Error(File not found: ${path});
+  }
+
+  const form = new FormData();
+  const fileStream = fs.createReadStream(path);
+  form.append("file", fileStream);
+  const originalFileName = path.split("/").pop(); 
+  form.append("originalFileName", originalFileName);
+
+  try {
+    const response = await axios.post("https://cdn.empiretech.biz.id/api/upload.php", form, {
+      headers: {
+        ...form.getHeaders(), 
+      },
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(API Error: ${error.response.status} - ${JSON.stringify(error.response.data)});
+    } else if (error.request) {
+      throw new Error("No response received from the server.");
+    } else {
+      throw new Error(Request Error: ${error.message});
+    }
+  }
+}
 
 
 // Fetch a buffer from a URL
@@ -137,5 +169,6 @@ module.exports = {
     runtime, 
     sleep, 
     fetchJson,
-    saveConfig
+    saveConfig,
+    empiretourl
 };
