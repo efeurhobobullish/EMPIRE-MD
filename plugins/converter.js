@@ -43,6 +43,7 @@ cmd({
       }
       const downloadUrl = uploadResult.files[0].download_url;
       const deleteUrl = uploadResult.files[0].delete_url;
+      const streamUrl = uploadResult.files[0].stream_url;
       const stats = fs.statSync(tempFilePath);
       const fileSizeMB = stats.size / (1024 * 1024);
       const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nStream Url:${streamUrl}\nDownload Url:${downloadUrl}\nDelete Url:${deleteUrl}\n*File Size:* ${fileSizeMB.toFixed(
