@@ -150,6 +150,23 @@ cmd({
         reply("❌ An error occurred while sending the VCard.");
     }
 });
+
+cmd({
+    pattern: "edit",
+    desc: "Edit sent messages.",
+    category: "owner",
+    filename: __filename
+}, async (conn, mek, m, { quoted, q, reply }) => {
+    if (!quoted) return reply("⚠️ Reply to a message with `.edit <new text>` to edit it.");
+    if (!q) return reply("⚠️ Provide the new text to edit the message.\nExample: `.edit New text`");
+
+    try {
+        await conn.sendMessage(m.chat, { text: q, edit: quoted.key });
+    } catch (e) {
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
+    }
+});
 //--------------------------------------------
 //  JID COMMANDS
 //--------------------------------------------
