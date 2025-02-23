@@ -32,7 +32,7 @@ cmd({
       }
 
       // Generate a random filename using makeId function
-      const filename = `${makeId(5)}.${fileType.ext}`;
+      const filename = `${getRandom(5)}.${fileType.ext}`;
 
       // Save the media to a temporary file
       const tempFilePath = path.join(__dirname, filename);
