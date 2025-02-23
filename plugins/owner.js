@@ -220,21 +220,17 @@ cmd({
     category: "owner",
     react: "🖼️",
     filename: __filename
-},
-async (conn, mek, m, { isOwner, quoted, reply }) => {
+}, async (conn, mek, m, { quoted, reply, isOwner }) => {
     if (!isOwner) return reply("❌ You are not the owner!");
-    if (!quoted || !quoted.msg || quoted.type !== "imageMessage") return reply("❌ Please reply to an image.");
-    
+    if (!quoted || !quoted.image) return reply("⚠️ Reply to an image to set as profile picture.");
+
     try {
-        const mediaPath = `${Date.now()}.jpg`;
-        const buffer = await quoted.download(mediaPath);
-        await conn.updateProfilePicture(conn.user.id, { url: `file://${mediaPath}` });
-        
-        fs.unlinkSync(mediaPath); // Remove temporary file
-        reply("🖼️ Profile picture updated successfully!");
-    } catch (error) {
-        console.error("Error updating profile picture:", error);
-        reply(`❌ Error updating profile picture: ${error.message}`);
+        let media = await quoted.download();
+        await conn.updateProfilePicture(conn.user.id, media);
+        reply("✅ Profile picture updated successfully.");
+    } catch (e) {
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
     }
 });
 //--------------------------------------------
