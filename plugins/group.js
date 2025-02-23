@@ -9,6 +9,7 @@ const { cmd, commands } = require('../command');
 const config = require('../config');
 const prefix = config.PREFIX;
 const fs = require('fs');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../Lib/functions');
 const { writeFileSync } = require('fs');
 const path = require('path');
 
