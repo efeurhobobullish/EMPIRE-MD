@@ -36,20 +36,20 @@ cmd({
       const url = data.url;
 
       const response = await fetch(
-        `https://api.giftedtech.web.id/api/download/ytmp3?apikey=_0x5aff35,_0x1876stqr&url=${encodeURIComponent(url)}`
+        `https://api.empiretech.biz.id/api/download/ytmp3?apikey=CBfmvL&url=${encodeURIComponent(url)}`
       );
       const json = await response.json();
       
       if (!json.success) return reply("❌ Failed to fetch audio. Please try again.");
 
-      const { title, download_url } = json.result;
+      const { title, audio_url } = json.result;
 
       await reply(`_Downloading ${title}_`);
 
       await conn.sendMessage(
         from,
         {
-          audio: { url: download_url },
+          audio: { url: audio_url },
           mimetype: "audio/mpeg",
         },
         { quoted: mek }
@@ -78,40 +78,33 @@ cmd({
     try {
       if (!q) return reply("Send me a URL or video title.");
 
-      // Search for the video
       const search = await yts(q);
-      if (!search.videos.length) return reply("❌ No results found.");
-      
       const data = search.videos[0];
       const url = data.url;
 
-      // Fetch video download link from API
       const response = await fetch(
-        `https://api.giftedtech.web.id/api/download/ytmp4?apikey=your_api_key&url=${encodeURIComponent(url)}`
+        `https://api.empiretech.biz.id/api/download/ytmp4?apikey=CBfmvL&url=${encodeURIComponent(url)}`
       );
       const json = await response.json();
-
-      if (!json.success) return reply("❌ Failed to fetch video. Please try again.");
-
-      const { title, download_url, thumbnail } = json.result;
-
-      await reply(`_Downloading: ${title}_`);
       
+      if (!json.success) return reply("❌ Failed to fetch audio. Please try again.");
+
+      const { title, video_url } = json.result;
+
+      await reply(`_Downloading ${title}_`);
+
       await conn.sendMessage(
         from,
         {
-          video: { url: download_url },
+          audio: { url: video_url },
           mimetype: "video/mp4",
-          caption: `🎥 *Title:* ${title}\n📥 *Quality:* 720p`,
-          thumbnail: { url: thumbnail }
         },
         { quoted: mek }
       );
 
       await m.react("✅");
-      
     } catch (e) {
-      console.error("Error in video command:", e);
+      console.error("Error in play command:", e);
       reply(`❌ Error: ${e.message}`);
     }
   });
