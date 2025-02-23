@@ -17,7 +17,7 @@ let antilinkAction = "off"; // Default state
 let warnCount = {}; // Track warnings per user
 
 cmd({
-    pattern: "antilink",
+    pattern: "antilink1",
     desc: "Enable Antilink (warn/delete/kick) or turn off",
     category: "group",
     filename: __filename
