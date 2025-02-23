@@ -1049,3 +1049,25 @@ cmd({
     await m.error(`❌ Error: ${err}\n\nCommand: broadcast`, err);
   }
 });
+
+
+cmd({
+    pattern: "setgpp",
+    desc: "Set full-screen profile picture for groups.",
+    category: "group",
+    filename: __filename
+}, async (conn, mek, m, { quoted, isGroup, isAdmins, isBotAdmins, reply }) => {
+    if (!isGroup) return reply("⚠️ This command can only be used in a group.");
+    if (!isAdmins) return reply("❌ You must be an admin to use this command.");
+    if (!isBotAdmins) return reply("❌ I need to be an admin to change the group profile picture.");
+    if (!quoted || !quoted.image) return reply("⚠️ Reply to an image to set as the group profile picture.");
+
+    try {
+        let media = await quoted.download();
+        await conn.updateProfilePicture(m.chat, media);
+        reply("✅ Group profile picture updated successfully.");
+    } catch (e) {
+        console.error(e);
+        reply(`❌ Failed to update group profile picture: ${e.message}`);
+    }
+});
