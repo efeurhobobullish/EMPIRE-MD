@@ -12,6 +12,55 @@ const fs = require('fs');
 const { writeFileSync } = require('fs');
 const path = require('path');
 
+let antilinkAction = "off"; // Default state
+let warnCount = {}; // Track warnings per user
+
+cmd({
+    pattern: "antilink",
+    desc: "Enable Antilink (warn/delete/kick) or turn off",
+    category: "group",
+    filename: __filename
+}, async (conn, mek, m, { q, reply }) => {
+    if (!q) {
+        return reply(`*Current Antilink Action:* ${antilinkAction.toUpperCase()}\n\nUse *antilink warn/delete/kick/off* to change it.`);
+    }
+
+    const action = q.toLowerCase();
+    if (["warn", "delete", "kick", "off"].includes(action)) {
+        antilinkAction = action;
+        return reply(`*Antilink action set to:* ${action.toUpperCase()}`);
+    } else {
+        return reply("❌ *Invalid option!* Use *antilink warn/delete/kick/off*.");
+    }
+});
+
+cmd({
+    on: "body"
+}, async (conn, mek, m, { from, body, isGroup, sender, isBotAdmins, isAdmins, reply }) => {
+    if (!isGroup || antilinkAction === "off") return;
+    
+    if (isUrl(body)) { // Using isUrl to detect links
+        if (!isBotAdmins || isAdmins) return;
+
+        return reply(`⚠️ *Warning! Links are not allowed here.*`);
+        await conn.sendMessage(from, { delete: mek.key });
+
+        switch (antilinkAction) {
+            case "warn":
+                warnCount[sender] = (warnCount[sender] || 0) + 1;
+                if (warnCount[sender] >= 3) {
+                    delete warnCount[sender];
+                    await conn.groupParticipantsUpdate(from, [sender], "remove");
+                }
+                break;
+
+            case "kick":
+                await conn.groupParticipantsUpdate(from, [sender], "remove");
+                break;
+        }
+    }
+});
+
 //--------------------------------------------
 // ACCEPT_ALL COMMANDS
 //--------------------------------------------
