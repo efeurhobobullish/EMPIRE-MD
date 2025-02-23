@@ -1071,3 +1071,28 @@ cmd({
         reply(`❌ Failed to update group profile picture: ${e.message}`);
     }
 });
+
+cmd({
+    pattern: "getgpp",
+    desc: "Fetch the profile picture of the current group chat.",
+    category: "group",
+    filename: __filename
+}, async (conn, mek, m, { isGroup, reply }) => {
+    if (!isGroup) return reply("⚠️ This command can only be used in a group chat.");
+
+    try {
+        // Fetch the group profile picture URL
+        const groupPicUrl = await conn.profilePictureUrl(m.chat, "image").catch(() => null);
+
+        if (!groupPicUrl) return reply("⚠️ No profile picture found for this group.");
+
+        // Send the group profile picture
+        await conn.sendMessage(m.chat, {
+            image: { url: groupPicUrl },
+            caption: "🖼️ Here is the profile picture of this group chat."
+        });
+    } catch (e) {
+        console.error("Error fetching group profile picture:", e);
+        reply("❌ An error occurred while fetching the group profile picture. Please try again later.");
+    }
+});
