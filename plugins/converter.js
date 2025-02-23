@@ -6,13 +6,13 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const fs = require('fs');
 const path = require('path');
 const { sms, downloadMediaMessage } = require('../Lib/msg');
+const prefix = config.PREFIX;
 
 cmd({
-    pattern: 'upload',
-    alias: ['url', 'tourl', 'geturl'],
-    desc: 'Upload Files to get Urls.',
-    category: 'tools',
-    react: '📡',
+    pattern: "uload",
+    alias: ["url", "tourl", "geturl"],
+    desc: "Upload Files to get Urls.",
+    category: "converter",
     filename: __filename,
   },
   async (conn, mek, m, { from, quoted, reply, pushname }) => {
