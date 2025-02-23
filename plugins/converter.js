@@ -1,11 +1,71 @@
 const { cmd } = require('../command');
 const axios = require('axios');
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson, tourl } = require('../Lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson, empiretourl } = require('../Lib/functions');
 const ffmpeg = require('fluent-ffmpeg');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const fs = require('fs');
 const path = require('path');
 const { sms, downloadMediaMessage } = require('../Lib/msg');
+
+cmd({
+    pattern: 'upload',
+    alias: ['url', 'tourl', 'geturl'],
+    desc: 'Upload Files to get Urls.',
+    category: 'tools',
+    react: '📡',
+    filename: __filename,
+  },
+  async (conn, mek, m, { from, quoted, reply, pushname }) => {
+    try {
+      if (!quoted) {
+        return reply(`Reply to an image, video, audio, or document to upload.\nUse *${prefix}url*`);
+      }
+      const mediaBuffer = await quoted.download();
+      if (!mediaBuffer) {
+        return reply('Failed to download media. Please try again.');
+      }
+      const { fileTypeFromBuffer } = await import('file-type'); // Import file-type npm package
+      const fileType = await fileTypeFromBuffer(mediaBuffer);
+      if (!fileType) {
+        return reply('Unable to determine the file type of the media.');
+      }
+
+      // Generate a random filename using makeId function
+      const filename = `${makeId(5)}.${fileType.ext}`;
+
+      // Save the media to a temporary file
+      const tempFilePath = path.join(__dirname, filename);
+      fs.writeFileSync(tempFilePath, mediaBuffer);
+      const uploadResult = await empiretourl(tempFilePath);
+      if (!uploadResult.success) {
+        return reply(`Upload failed: ${uploadResult.error || uploadResult.message}`);
+      }
+      const downloadUrl = uploadResult.files[0].download_url;
+      const deleteUrl = uploadResult.files[0].delete_url;
+      const stats = fs.statSync(tempFilePath);
+      const fileSizeMB = stats.size / (1024 * 1024);
+      const message = `*Hey ${pushname}, Here Are Your Media URLs:*\n\nStream Url:${streamUrl}\nDownload Url:${downloadUrl}\nDelete Url:${deleteUrl}\n*File Size:* ${fileSizeMB.toFixed(
+        2
+      )} MB\n*File Type:* ${fileType.ext.toUpperCase()}\n*File Expiration:* No Expiry Unless Deleted`;
+      if (fileType.mime.startsWith('image/') || fileType.mime.startsWith('video/')) {
+        await conn.sendMessage(
+          from,
+          {
+            [fileType.mime.startsWith('image/') ? 'image' : 'video']: { url: tempFilePath },
+            caption: message,
+          },
+          { quoted: mek }
+        );
+      } else if (fileType.mime.startsWith('audio/')) {
+        await conn.sendMessage(from, { text: message }, { quoted: mek });
+      }
+      await m.react('✅');
+      fs.unlinkSync(tempFilePath);
+    } catch (error) {
+      console.error(error);
+      reply(`An error occurred while uploading the file: ${error.message}`);
+    }
+});
 
 cmd({
     pattern: "tomp3",
