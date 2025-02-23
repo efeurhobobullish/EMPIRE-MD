@@ -64,7 +64,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/rizz?apikey=CBfmvL`);
+        let data = await get(`https://api.empiretech.biz.id/fun/rizz?apikey=CBfmvL`);
         return reply(`${data.result}`);
     } catch (e) {
         console.log(e);
@@ -81,7 +81,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/motivation?apikey=CBfmvL`);
+        let data = await get(`https://api.empiretech.biz.id/fun/motivation?apikey=CBfmvL`);
         return reply(`${data.result}`);
     } catch (e) {
         console.log(e);
@@ -100,7 +100,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let response = await axios.get(`https://empire-tech-api.koyeb.app/api/fun/quotes?apikey=CBfmvL`);
+        let response = await axios.get(`https://api.empiretech.biz.id/fun/quotes?apikey=CBfmvL`);
         
         console.log("API Response:", response.data); // Debugging log
 
@@ -125,7 +125,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/jokes?apikey=CBfmvL`);
+        let data = await get(`https://api.empiretech.biz.id/fun/jokes?apikey=CBfmvL`);
         return reply(`${data.result}`);  // Ensure the result is a string.
     } catch (e) {
         console.log(e);
@@ -177,7 +177,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        let data = await get(`https://empire-tech-api.koyeb.app/api/fun/insult?apikey=CBfmvL`);
+        let data = await get(`https://api.empiretech.biz.id/fun/insult?apikey=CBfmvL`);
         return reply(`${data.result}`);
     } catch (e) {
         console.log(e);
