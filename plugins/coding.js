@@ -10,6 +10,7 @@ const config = require('../config');
 const { cmd, commands } = require("../command");
 const JavaScriptObfuscator = require("javascript-obfuscator");
 const prefix = config.PREFIX;
+const exec = require('child_process');
 
 //--------------------------------------------
 // OBFUSCATE COMMANDS
