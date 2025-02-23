@@ -12,7 +12,7 @@ const FormData = require("form-data");
 
 async function empiretourl(path) {
   if (!fs.existsSync(path)) {
-    throw new Error(File not found: ${path});
+    throw new Error(`File not found: ${path}`);
   }
 
   const form = new FormData();
@@ -32,15 +32,14 @@ async function empiretourl(path) {
     return response.data;
   } catch (error) {
     if (error.response) {
-      throw new Error(API Error: ${error.response.status} - ${JSON.stringify(error.response.data)});
+      throw new Error(`API Error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
     } else if (error.request) {
       throw new Error("No response received from the server.");
     } else {
-      throw new Error(Request Error: ${error.message});
+      throw new Error(`Request Error: ${error.message}`);
     }
   }
 }
-
 
 // Fetch a buffer from a URL
 const getBuffer = async (url, options) => {
