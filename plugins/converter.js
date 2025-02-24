@@ -10,13 +10,13 @@ const { sms, downloadMediaMessage } = require('../Lib/msg');
 const prefix = config.PREFIX;
 
 cmd({
-    pattern: "uload",
-    alias: ["url", "tourl", "geturl"],
+    pattern: "tourl",
+    alias: ["url"],
     desc: "Upload Files to get Urls.",
     category: "converter",
-    filename: __filename,
-  },
-  async (conn, mek, m, { from, quoted, reply, pushname }) => {
+    react: "⏳",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, reply, pushname }) => {
     try {
       if (!quoted) {
         return reply(`Reply to an image, video, audio, or document to upload.\nUse *${prefix}url*`);
