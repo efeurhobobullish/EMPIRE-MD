@@ -258,7 +258,7 @@ async (conn, mek, m, { isOwner, q, reply }) => {
 //  VV COMMANDS
 //--------------------------------------------
 cmd({
-    pattern: "vv",
+    pattern: "vv2",
     desc: "Get view once.",
     category: "owner",
     react: "👀",
@@ -313,7 +313,7 @@ cmd({
 //  VV-2 COMMANDS
 //--------------------------------------------
 cmd({
-    pattern: "vv2",
+    pattern: "vv",
     desc: "Get view once to owner chat.",
     category: "owner",
     react: "👀",
